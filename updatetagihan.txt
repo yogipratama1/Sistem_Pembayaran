@@ -1,0 +1,49 @@
+DefaultTableModel dataModel = (DefaultTableModel) tblpembayaran.getModel();
+        int i = 0;
+       
+
+        String kodebayar = dataModel.getValueAt(i, 0).toString();
+        System.out.println(kodebayar);
+        String idsiswa = tIDsiswa.getText();
+        String periode = cbperiode.getSelectedItem().toString();
+        try {
+            String sql = "SELECT * FROM tbl_dettran where kode_siswa='" + idsiswa + "' and kode_bayar='" + kodebayar + "'";
+            rs = con.createStatement().executeQuery(sql);
+            while (rs.next()) {
+
+                int jumlah_baris = tblpembayaran.getRowCount();
+                if (jumlah_baris == 0) {
+                    JOptionPane.showMessageDialog(null, "Table Masih Kosong!");
+                } else {
+                    try {
+
+                        int a = 0;
+                        while (a < jumlah_baris) {
+                            String hutang = (rs.getString("Hutang"));
+                            
+                            int lunas = Integer.parseInt(rs.getString("Lunas"));
+                            int bayar = Integer.parseInt(dataModel.getValueAt(a, 2).toString());
+
+//                            int updatehutang = hutang - bayar;
+                            int updatelunas = lunas + bayar;
+                            System.out.println(hutang);
+
+//                            con.createStatement().executeUpdate("UPDATE tbl_dettran"
+//                                    + " set Hutang='" + updatehutang + "',"
+//                                    + "Lunas='" + updatelunas + "'"
+//                                    + " where kode_siswa='" + idsiswa + "' "
+//                                    + "and kode_bayar='" + tblpembayaran.getValueAt(a, 0) + "'");
+                            a++;
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e);
+                        JOptionPane.showMessageDialog(null, "Update tbl_dettran gagal!!" + e);
+                    }
+
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "tagihan tidak ada/sudah lunas!!" + e);
+        }

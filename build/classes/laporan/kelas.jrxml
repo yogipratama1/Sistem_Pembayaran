@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f4924b59-4c5b-4273-b5f4-bff1430b2a23">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select * from tbl_kelas]]>
+	</queryString>
+	<field name="Kode_kelas" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Nama_kelas" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="group_kelas" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField pattern="dd-MMM-yy">
+				<reportElement x="442" y="31" width="100" height="20" uuid="4b6312ad-bc75-4cbc-809b-1ddca646d723"/>
+				<textElement>
+					<font isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="42" width="100" height="17" uuid="c3575535-d9bd-4b8a-af07-85c6b578122e"/>
+				<text><![CDATA[Jl. Trisula No. 03]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="24" width="60" height="15" uuid="128e0a07-f73e-402e-8c05-a5c3bf46f149"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Donomulyo]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="481" y="54" width="40" height="20" uuid="74035d4b-9bd8-43ce-b57e-18466e6685e6"/>
+				<textElement>
+					<font isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="399" y="54" width="80" height="20" uuid="921cbd72-858f-4f90-a0e1-31ff90c067c5"/>
+				<textElement textAlignment="Right">
+					<font isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="61" width="192" height="15" uuid="1eaf4e06-a490-424e-b4dd-8091cf08736f"/>
+				<text><![CDATA[Telp (0341) 081047 Fax (0341) 881778]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="208" y="51" width="137" height="20" uuid="028eb2bf-824c-498e-be38-d442abbfa14e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[DAFTAR KELAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="2" width="114" height="20" uuid="17820cda-2d02-4ad6-a6cb-91a73938096d"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[SMK Muhamadiyah 06 ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="30" y="0" width="148" height="20" uuid="ab789a77-159c-4428-9ee7-1428e5f12419"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="345" y="0" width="186" height="20" uuid="ab789a77-159c-4428-9ee7-1428e5f12419"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="178" y="0" width="167" height="20" uuid="ab789a77-159c-4428-9ee7-1428e5f12419"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="45" y="0" width="100" height="20" uuid="251b907c-96f9-44e2-9629-da1d38975c33"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID KELAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="208" y="0" width="100" height="20" uuid="d7b4c93b-0f2a-4a1f-b498-b8742408d54d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NAMA KELAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="379" y="0" width="100" height="20" uuid="36f971dc-f3f3-41d0-b46d-c8236e9deefa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[GRUP KELAS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<rectangle>
+				<reportElement x="30" y="0" width="148" height="20" uuid="ab789a77-159c-4428-9ee7-1428e5f12419"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="178" y="0" width="167" height="20" uuid="ab789a77-159c-4428-9ee7-1428e5f12419"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="345" y="1" width="186" height="20" uuid="ab789a77-159c-4428-9ee7-1428e5f12419"/>
+			</rectangle>
+			<textField>
+				<reportElement x="60" y="0" width="100" height="20" uuid="73625936-8560-49d3-9cb6-82194d9a3b93"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Kode_kelas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="208" y="0" width="117" height="20" uuid="59d68058-20f9-4eb4-bc96-4cf818b71b01"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Nama_kelas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="379" y="1" width="100" height="20" uuid="761bba17-0475-4a41-b4f3-4fb8b6c80aee"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{group_kelas}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

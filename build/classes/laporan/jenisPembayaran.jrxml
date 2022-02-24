@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ed837ba5-4f82-4a78-996a-adb6d21cd8e5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select * from tbl_pembayaran;]]>
+	</queryString>
+	<field name="Kode_bayar" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Nama_pembayaran" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Biaya" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="group_kelas" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Periode" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField pattern="dd-MMM-yy">
+				<reportElement x="443" y="29" width="100" height="20" uuid="4b6312ad-bc75-4cbc-809b-1ddca646d723"/>
+				<textElement>
+					<font isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="40" width="100" height="17" uuid="c3575535-d9bd-4b8a-af07-85c6b578122e"/>
+				<text><![CDATA[Jl. Trisula No. 03]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="22" width="60" height="15" uuid="128e0a07-f73e-402e-8c05-a5c3bf46f149"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Donomulyo]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="482" y="52" width="40" height="20" uuid="74035d4b-9bd8-43ce-b57e-18466e6685e6"/>
+				<textElement>
+					<font isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="52" width="80" height="20" uuid="921cbd72-858f-4f90-a0e1-31ff90c067c5"/>
+				<textElement textAlignment="Right">
+					<font isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="59" width="192" height="15" uuid="1eaf4e06-a490-424e-b4dd-8091cf08736f"/>
+				<text><![CDATA[Telp (0341) 081047 Fax (0341) 881778]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="114" height="20" uuid="17820cda-2d02-4ad6-a6cb-91a73938096d"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[SMK Muhamadiyah 06 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="173" y="29" width="209" height="20" uuid="028eb2bf-824c-498e-be38-d442abbfa14e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[DAFTAR JENIS PEMBAYARAN]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<rectangle>
+				<reportElement x="235" y="1" width="100" height="20" uuid="1fed023e-7e1e-47da-9154-bffae29d67bc"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="122" y="1" width="113" height="20" uuid="1fed023e-7e1e-47da-9154-bffae29d67bc"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="335" y="1" width="100" height="20" uuid="1fed023e-7e1e-47da-9154-bffae29d67bc"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="435" y="1" width="100" height="20" uuid="1fed023e-7e1e-47da-9154-bffae29d67bc"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="235" y="1" width="100" height="20" uuid="7182f933-fec7-4de1-88b9-8b7c4805223e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[BIAYA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="335" y="1" width="100" height="20" uuid="6034b419-8a53-40ab-916e-feaa2c163bd3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[GRUP KELAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="435" y="1" width="100" height="20" uuid="549e459f-b054-4ec7-b326-08aa7017a8fe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PERIODE]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="22" y="1" width="100" height="20" uuid="1fed023e-7e1e-47da-9154-bffae29d67bc"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="122" y="0" width="113" height="20" uuid="a8083b37-a9f0-4105-bb4b-46186448b166"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NAMA PEMBAYARAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="0" width="100" height="20" uuid="8fa308d8-8f63-4ea6-8ef0-fab4432fb291"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[KODE BAYAR]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<rectangle>
+				<reportElement x="335" y="-1" width="100" height="20" uuid="1fed023e-7e1e-47da-9154-bffae29d67bc"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="435" y="-1" width="100" height="20" uuid="1fed023e-7e1e-47da-9154-bffae29d67bc"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="235" y="-1" width="100" height="20" uuid="1fed023e-7e1e-47da-9154-bffae29d67bc"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="122" y="-1" width="113" height="20" uuid="1fed023e-7e1e-47da-9154-bffae29d67bc"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="22" y="-1" width="100" height="20" uuid="1fed023e-7e1e-47da-9154-bffae29d67bc"/>
+			</rectangle>
+			<textField>
+				<reportElement x="22" y="1" width="100" height="20" uuid="5339e09e-3e04-4d06-b02e-0440f28d893c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Kode_bayar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="122" y="1" width="113" height="20" uuid="32ac97d8-b80d-4a9e-b91a-ea9b20739810"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Nama_pembayaran}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;#,##0.00-">
+				<reportElement x="235" y="1" width="100" height="20" uuid="9b15496c-08ee-4d17-8130-8159c5bdaf36"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Biaya}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="335" y="1" width="100" height="20" uuid="d063e9df-c3e9-4679-8efb-49c456594b1e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{group_kelas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="435" y="0" width="100" height="20" uuid="c9d7cc9a-cab2-48c6-a5f9-c878f1796b41"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Periode}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="35" splitType="Stretch"/>
+	</summary>
+</jasperReport>
