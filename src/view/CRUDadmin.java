@@ -95,6 +95,7 @@ public class CRUDadmin extends javax.swing.JFrame {
         });
         getContentPane().add(btnkembali, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 180, 50));
 
+        tbladmin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         tbladmin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -115,6 +116,7 @@ public class CRUDadmin extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 240, 670, 320));
 
+        tCari.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         tCari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tCariActionPerformed(evt);
@@ -143,18 +145,21 @@ public class CRUDadmin extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("NAMA/USERNAME");
 
+        tIDadmin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         tIDadmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tIDadminActionPerformed(evt);
             }
         });
 
+        tNama.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         tNama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tNamaActionPerformed(evt);
             }
         });
 
+        tPassword.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         tPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tPasswordActionPerformed(evt);
@@ -194,10 +199,13 @@ public class CRUDadmin extends javax.swing.JFrame {
             }
         });
 
+        telp.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("LEVEL");
 
-        cblevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "petugas" }));
+        cblevel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        cblevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "petugas", "ppdb" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

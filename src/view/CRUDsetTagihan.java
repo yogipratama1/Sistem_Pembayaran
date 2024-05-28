@@ -29,7 +29,7 @@ public class CRUDsetTagihan extends javax.swing.JFrame {
      */
     DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
     DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
-    
+
     public CRUDsetTagihan() {
         initComponents();
         comboperiode2();
@@ -47,23 +47,23 @@ public class CRUDsetTagihan extends javax.swing.JFrame {
     ResultSet rs;
     PreparedStatement pst;
     DefaultTableModel model;
-    
+
     public void comboperiode2() {
-        
+
         String sql = "SELECT * FROM tbl_periode ";
-        
+
         try {
             pst = con.prepareStatement(sql);
             rs = pst.executeQuery();
             while (rs.next()) {
                 tperiode.addItem(rs.getString("Periode"));
             }
-            
+
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-    
+
     private void tabelSiswa() {
         String[] judul = {"NAMA SISWA", "KODE SISWA", "NAMA PEMBAYARAN", "KODE BAYAR", "HUTANG"};
         model = new DefaultTableModel(judul, 0);
@@ -75,22 +75,21 @@ public class CRUDsetTagihan extends javax.swing.JFrame {
                 + " and tbl_dettran.Periode='" + tperiode.getSelectedItem() + "'";
         try {
             rs = con.createStatement().executeQuery(sql);
-            
+
             while (rs.next()) {
                 String id = rs.getString("Nama_siswa");
                 String kk = rs.getString("Kode_siswa");
                 String kelas = rs.getString("Nama_pembayaran");
                 String kodebayar = rs.getString("kode_bayar");
                 String hutang = rs.getString("Hutang");
-               
-                
+
                 String[] data = {id, kk, kelas, kodebayar, hutang};
                 model.addRow(data);
             }
         } catch (Exception e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, e);
-            
+
         }
     }
 
@@ -103,6 +102,12 @@ public class CRUDsetTagihan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        siswa = new javax.swing.JFrame();
+        jPanel2 = new javax.swing.JPanel();
+        tcari = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblsiswa1 = new javax.swing.JTable();
         jButton4 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -125,6 +130,86 @@ public class CRUDsetTagihan extends javax.swing.JFrame {
         tperiode = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
         bg = new javax.swing.JLabel();
+
+        siswa.setMinimumSize(new java.awt.Dimension(945, 528));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        tcari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tcariActionPerformed(evt);
+            }
+        });
+        tcari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tcariKeyReleased(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setText("Cari Siswa");
+
+        tblsiswa1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tblsiswa1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblsiswa1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblsiswa1MouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tblsiswa1);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 898, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane3)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(25, 25, 25)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(40, 40, 40)
+                            .addComponent(tcari, javax.swing.GroupLayout.PREFERRED_SIZE, 722, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap()))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 494, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tcari, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
+                    .addGap(18, 18, 18)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        javax.swing.GroupLayout siswaLayout = new javax.swing.GroupLayout(siswa.getContentPane());
+        siswa.getContentPane().setLayout(siswaLayout);
+        siswaLayout.setHorizontalGroup(
+            siswaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        siswaLayout.setVerticalGroup(
+            siswaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -178,7 +263,6 @@ public class CRUDsetTagihan extends javax.swing.JFrame {
         });
 
         kb.setEditable(false);
-        kb.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         htng.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
@@ -345,6 +429,7 @@ public class CRUDsetTagihan extends javax.swing.JFrame {
             kb.setText("");
             htng.setText("");
             tabelSiswa();
+            totaltagihan();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Masukan Data Dengan Benar !!");
             JOptionPane.showMessageDialog(null, e);
@@ -363,12 +448,12 @@ public class CRUDsetTagihan extends javax.swing.JFrame {
         Dashboard dsb = new Dashboard();
         dsb.dashAdmin();
         dsb.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        dsb.setVisible(false);
-        dispose();;
+        dsb.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void tperiodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tperiodeActionPerformed
-        
+
         tabelSiswa();
         totaltagihan();
     }//GEN-LAST:event_tperiodeActionPerformed
@@ -381,7 +466,7 @@ public class CRUDsetTagihan extends javax.swing.JFrame {
         kb.setText(model.getValueAt(i, 3).toString());
         htng.setText(model.getValueAt(i, 4).toString());
         tperiode.setSelectedItem(model.getValueAt(i, 0).toString());
-        
+
     }//GEN-LAST:event_tblsiswaMouseClicked
 
     private void nmpembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nmpembayaranActionPerformed
@@ -393,9 +478,33 @@ public class CRUDsetTagihan extends javax.swing.JFrame {
     }//GEN-LAST:event_jmlhutangActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-         new tabelsiswasettagihan().setVisible(true);
-        dispose();
+        tampilsiswa();
+        tabelSiswa();
+        totaltagihan();
+        siswa.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void tcariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tcariActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tcariActionPerformed
+
+    private void tcariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tcariKeyReleased
+        tampilsiswa();
+    }//GEN-LAST:event_tcariKeyReleased
+
+    private void tblsiswa1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblsiswa1MouseClicked
+
+        int i = tblsiswa1.getSelectedRow();
+        DefaultTableModel dataModel = (DefaultTableModel) tblsiswa1.getModel();
+        String kodesiswa = dataModel.getValueAt(i, 0).toString();
+
+        tCari.setText(kodesiswa);
+        tabelSiswa();
+        totaltagihan();
+
+        siswa.setVisible(false);
+
+    }//GEN-LAST:event_tblsiswa1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -443,17 +552,23 @@ public class CRUDsetTagihan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jmlhutang;
     private javax.swing.JTextField kb;
     private javax.swing.JTextField nmpembayaran;
+    private javax.swing.JFrame siswa;
     public javax.swing.JTextField tCari;
     public javax.swing.JTextField tIDsiswa;
     private javax.swing.JTable tblsiswa;
+    private javax.swing.JTable tblsiswa1;
+    private javax.swing.JTextField tcari;
     private javax.swing.JComboBox<String> tperiode;
     // End of variables declaration//GEN-END:variables
 
@@ -464,5 +579,28 @@ public class CRUDsetTagihan extends javax.swing.JFrame {
             total += amount;
         }
         jmlhutang.setText("" + String.valueOf(kursIndonesia.format(total)));
+    }
+
+    public void tampilsiswa() {
+        String[] judul = {"Kode Siswa", "Nama Siswa"};
+        model = new DefaultTableModel(judul, 0);
+        tblsiswa1.setModel(model);
+        try {
+            String sql = "SELECT *,tbl_siswa.Kode_siswa,tbl_siswa.Nama_siswa,tbl_setupkelas.*, tbl_kelas.Nama_kelas"
+                    + " FROM tbl_setupkelas INNER join tbl_siswa using(Kode_siswa)"
+                    + " inner join tbl_kelas using(kode_kelas)"
+                    + " where Nama_siswa like'%" + tcari.getText() + "%' and Status='aktif' ORDER BY tbl_siswa.Kode_siswa ASC";
+            rs = con.createStatement().executeQuery(sql);
+            while (rs.next()) {
+                String kodesiswa = rs.getString("Kode_siswa");
+                String namasiswa = rs.getString("Nama_siswa");
+
+                String[] data = {kodesiswa, namasiswa};
+                model.addRow(data);
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 }

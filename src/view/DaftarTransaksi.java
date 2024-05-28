@@ -7,9 +7,11 @@ package view;
 
 import config.KoneksiDB;
 import config.UserSession;
+import config.sekolahSession;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -313,15 +315,15 @@ public class DaftarTransaksi extends javax.swing.JFrame {
     }//GEN-LAST:event_kelasActionPerformed
 
     private void btncetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncetakActionPerformed
-        try {
-            cetaknota();
-        } catch (Exception ex) {
-            Logger.getLogger(DaftarTransaksi.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        tampiltotal();
     }//GEN-LAST:event_btncetakActionPerformed
 
     private void btnrefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrefreshActionPerformed
-        hapustransaksi();
+        if (level.equals("petugas")) {
+            JOptionPane.showMessageDialog(null, "Hanya bisa diakses admin");
+        } else {
+            hapustransaksi();
+        }
 
     }//GEN-LAST:event_btnrefreshActionPerformed
 
@@ -464,10 +466,16 @@ public class DaftarTransaksi extends javax.swing.JFrame {
 
     }
 
-    public void cetaknota() throws Exception {
+    public void cetaknota(int total) throws Exception {
 
         JasperDesign jd = JRXmlLoader.load(getClass().getResourceAsStream("/laporan/notabayar.jrxml"));
         JRDesignQuery query = new JRDesignQuery();
+        HashMap param = new HashMap();
+        param.put("total", total);
+        String namaSekolah = sekolahSession.getNamaSekolah();
+        String alamatsekolah = sekolahSession.getAlamatSekolah();
+        param.put("namaSekolah", namaSekolah);
+        param.put("alamatSekolah", alamatsekolah);
 
         query.setText("select tbl_siswa.Nama_siswa,tbl_dettransaksi.*,tbl_transaksi.*,"
                 + "tbl_pembayaran.Nama_pembayaran,tbl_kelas.Nama_kelas from tbl_transaksi "
@@ -479,7 +487,7 @@ public class DaftarTransaksi extends javax.swing.JFrame {
         jd.setQuery(query);
 
         JasperReport jr = JasperCompileManager.compileReport(jd);
-        JasperPrint jp = JasperFillManager.fillReport(jr, null, con);
+        JasperPrint jp = JasperFillManager.fillReport(jr, param, con);
         JasperViewer.viewReport(jp, false);
 
     }
@@ -537,16 +545,15 @@ public class DaftarTransaksi extends javax.swing.JFrame {
                         String kodebayar = tbljenispembayaran.getValueAt(i, 0).toString();
                         int jumlahbayar = Integer.parseInt(tbljenispembayaran.getValueAt(i, 1).toString());
                         String slq = "select * from tbl_dettran where kode_siswa='" + idsiswa + "' and Kode_bayar='" + kodebayar + "'";
-                        
+
                         try {
                             rs = con.createStatement().executeQuery(slq);
                             while (rs.next()) {
                                 int hutang = Integer.parseInt(rs.getString("Hutang"));
                                 int lunas = Integer.parseInt(rs.getString("Lunas"));
-                                
+
                                 int updatehtg = hutang + jumlahbayar;
                                 int updatelns = lunas - jumlahbayar;
-                                
 
                                 con.createStatement().executeUpdate("update tbl_dettran set Hutang='" + updatehtg + "'"
                                         + ", Lunas='" + updatelns + "' where Kode_siswa='" + idsiswa + "' and kode_bayar='" + kodebayar + "'");
@@ -577,5 +584,18 @@ public class DaftarTransaksi extends javax.swing.JFrame {
 
         }
 
+    }
+
+    public void tampiltotal() {
+        String sql = "select sum(jumlah) as jumlah from tbl_dettransaksi where no_faktur='" + nokwitansi.getText() + "'";
+        try {
+            rs = con.createStatement().executeQuery(sql);
+            while (rs.next()) {
+                int jumlah = Integer.parseInt(rs.getString("jumlah"));
+                cetaknota(jumlah);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }

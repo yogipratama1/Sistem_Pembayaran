@@ -263,15 +263,19 @@ public class CRUDta extends javax.swing.JFrame {
     private void btnsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimpanActionPerformed
 
         String nama = tnamaTA.getText();
-
-        try {
-            con.createStatement().executeUpdate("INSERT INTO tbl_periode VALUE('" + nama + "')");
-            JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan");
-            Resetform();
-        } catch (Exception ex) {
-            System.out.println("" + ex);
-            JOptionPane.showMessageDialog(null, "Gagal !! Tahun Ajaran Sudah ada!! ");
+        if (nama.equals("")) {
+            JOptionPane.showMessageDialog(null, "Masukan tahun ajaran dengan benar!!");
+        } else {
+            try {
+                con.createStatement().executeUpdate("INSERT INTO tbl_periode VALUE('" + nama + "',CURRENT_TIMESTAMP)");
+                JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan");
+                Resetform();
+            } catch (Exception ex) {
+                System.out.println("" + ex);
+                JOptionPane.showMessageDialog(null, "Gagal !! Tahun Ajaran Sudah ada!! ");
+            }
         }
+
 
     }//GEN-LAST:event_btnsimpanActionPerformed
 
@@ -339,10 +343,11 @@ public class CRUDta extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void tabelTA() {
-        String[] judul = {"PERIODE"};
+        String[] judul = {"PERIODE","Created At"};
         model = new DefaultTableModel(judul, 0);
         tblTA.setModel(model);
-        String sql = "SELECT * FROM tbl_periode where Periode like '%" + tCari.getText() + "'";
+        String sql = "SELECT * FROM tbl_periode where Periode like '%" + tCari.getText() + "' ORDER BY created_at DESC";
+        System.out.println(sql);
 
         try {
             rs = con.createStatement().executeQuery(sql);
@@ -350,8 +355,9 @@ public class CRUDta extends javax.swing.JFrame {
             while (rs.next()) {
 
                 String periode = rs.getString("Periode");
+                String createdAt = rs.getString("created_at");
 
-                String[] data = {periode};
+                String[] data = {periode,createdAt};
                 model.addRow(data);
             }
         } catch (Exception e) {

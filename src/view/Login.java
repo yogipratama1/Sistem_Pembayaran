@@ -7,11 +7,13 @@ package view;
 
 import java.sql.Statement;
 import javax.swing.*;
-import config.UserSession;
+import config.*;
 import config.KoneksiDB;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -27,6 +29,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        cekSekolah();
     }
 
     /**
@@ -53,16 +56,15 @@ public class Login extends javax.swing.JFrame {
         submit_siswa = new javax.swing.JButton();
         tNisn = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        txtnamasekolah = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         Petugas = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         In_username = new javax.swing.JTextField();
         submit = new javax.swing.JButton();
         In_password = new javax.swing.JPasswordField();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 255));
 
@@ -206,7 +208,44 @@ public class Login extends javax.swing.JFrame {
         setBackground(new java.awt.Color(51, 51, 255));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(0, 102, 102));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("SISTEM PEMBAYARAN SISWA");
+
+        txtnamasekolah.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        txtnamasekolah.setForeground(new java.awt.Color(255, 255, 255));
+        txtnamasekolah.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtnamasekolah.setText("txtnamasekolah");
+        txtnamasekolah.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(135, 135, 135)
+                .addComponent(jLabel11)
+                .addContainerGap(117, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtnamasekolah, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jLabel11)
+                .addGap(18, 18, 18)
+                .addComponent(txtnamasekolah)
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -2, 610, 160));
+
+        jPanel3.setBackground(new java.awt.Color(0, 255, 204));
 
         Petugas.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 255), 5, true));
 
@@ -244,30 +283,27 @@ public class Login extends javax.swing.JFrame {
         Petugas.setLayout(PetugasLayout);
         PetugasLayout.setHorizontalGroup(
             PetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PetugasLayout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
+            .addGroup(PetugasLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
                 .addGroup(PetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PetugasLayout.createSequentialGroup()
-                        .addComponent(In_password, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PetugasLayout.createSequentialGroup()
-                        .addGroup(PetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PetugasLayout.createSequentialGroup()
-                                .addGap(68, 68, 68)
-                                .addComponent(jLabel2))
-                            .addComponent(In_username, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(PetugasLayout.createSequentialGroup()
-                                .addGap(72, 72, 72)
-                                .addComponent(jLabel3))
-                            .addGroup(PetugasLayout.createSequentialGroup()
-                                .addGap(79, 79, 79)
-                                .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(45, 45, 45))))
+                    .addComponent(In_password, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(PetugasLayout.createSequentialGroup()
+                            .addGap(68, 68, 68)
+                            .addComponent(jLabel2))
+                        .addComponent(In_username, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(PetugasLayout.createSequentialGroup()
+                            .addGap(72, 72, 72)
+                            .addComponent(jLabel3))
+                        .addGroup(PetugasLayout.createSequentialGroup()
+                            .addGap(79, 79, 79)
+                            .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         PetugasLayout.setVerticalGroup(
             PetugasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PetugasLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(37, 37, 37)
                 .addComponent(jLabel2)
                 .addGap(6, 6, 6)
                 .addComponent(In_username, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -277,77 +313,27 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(In_password, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(submit, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-                .addGap(45, 45, 45))
+                .addGap(48, 48, 48))
         );
-
-        jPanel3.setBackground(new java.awt.Color(0, 102, 102));
-
-        jLabel8.setBackground(new java.awt.Color(204, 102, 255));
-        jLabel8.setFont(new java.awt.Font("Open Sans", 1, 36)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("LOGIN APLIKASI");
-
-        jLabel9.setFont(new java.awt.Font("Open Sans", 1, 36)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText(" x");
-        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel9MouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(129, Short.MAX_VALUE)
+                .addComponent(Petugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(106, 106, 106))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel9)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(41, Short.MAX_VALUE)
-                .addComponent(jLabel8)
-                .addGap(36, 36, 36))
-        );
-
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Cover.jpg"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Petugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
+                .addContainerGap()
                 .addComponent(Petugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -2, 810, 640));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 600, 420));
 
         pack();
         setLocationRelativeTo(null);
@@ -358,213 +344,26 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void submit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submit1ActionPerformed
-        String user = In_username.getText();
-        String pass = In_password.getText();
-
-        try {
-            Statement st = con.createStatement();
-            String sql = "SELECT * FROM  tbl_user where Nama_user='" + user + "' and Pass='" + pass + "'";
-            rs = st.executeQuery(sql);
-
-            if (rs.next()) {
-                String id = rs.getString("Kode_user");
-                String username = rs.getString("Nama_user");
-                String level = rs.getString("level");
-
-                //set user data session
-                UserSession.set_id(id);
-                UserSession.set_username(username);
-                UserSession.set_level(level);
-
-                switch (level) {
-                    case "admin": {
-                        JOptionPane.showMessageDialog(null, "Selamat datang " + username + " !");
-                        Dashboard dsb = new Dashboard();
-                        dsb.dashAdmin();
-                        dsb.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                        dsb.setVisible(true);
-                        dispose();
-                        break;
-                    }
-                    case "petugas": {
-                        JOptionPane.showMessageDialog(null, "Selamat datang " + username + " !");
-                        Dashboard dsb = new Dashboard();
-                        dsb.dashPetugas();
-                        dsb.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                        dsb.setVisible(true);
-                        dispose();
-                        break;
-                    }
-                    default:
-                        break;
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Username atau password salah");
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
+        login();
     }//GEN-LAST:event_submit1ActionPerformed
 
     private void submit_siswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submit_siswaActionPerformed
 
     }//GEN-LAST:event_submit_siswaActionPerformed
 
-    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_jLabel9MouseClicked
+    private void In_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_In_passwordActionPerformed
+        login();
+    }//GEN-LAST:event_In_passwordActionPerformed
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        String user = In_username.getText();
-        String pass = In_password.getText();
-
-        try {
-            Statement st = con.createStatement();
-            String sql = "SELECT * FROM  tbl_user where Nama_user='" + user + "' and Pass='" + pass + "'";
-            rs = st.executeQuery(sql);
-
-            if (rs.next()) {
-                String id = rs.getString("Kode_user");
-                String username = rs.getString("Nama_user");
-                String level = rs.getString("level");
-
-                //set user data session
-                UserSession.set_id(id);
-                UserSession.set_username(username);
-                UserSession.set_level(level);
-
-                switch (level) {
-                    case "admin": {
-                        JOptionPane.showMessageDialog(null, "Selamat datang " + username + " !");
-                        Dashboard dsb = new Dashboard();
-                        dsb.dashAdmin();
-                        dsb.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                        dsb.setVisible(true);
-                        dispose();
-                        break;
-                    }
-                    case "petugas": {
-                        JOptionPane.showMessageDialog(null, "Selamat datang " + username + " !");
-                        Dashboard dsb = new Dashboard();
-                        dsb.dashPetugas();
-                        dsb.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                        dsb.setVisible(true);
-                        dispose();
-                        break;
-                    }
-                    default:
-                        break;
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Username atau password salah");
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
+        login();
     }//GEN-LAST:event_submitActionPerformed
 
     private void submitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitMouseEntered
-      String user = In_username.getText();
-        String pass = In_password.getText();
+        login();
 
-        try {
-            Statement st = con.createStatement();
-            String sql = "SELECT * FROM  tbl_user where Nama_user='" + user + "' and Pass='" + pass + "'";
-            rs = st.executeQuery(sql);
-
-            if (rs.next()) {
-                String id = rs.getString("Kode_user");
-                String username = rs.getString("Nama_user");
-                String level = rs.getString("level");
-
-                //set user data session
-                UserSession.set_id(id);
-                UserSession.set_username(username);
-                UserSession.set_level(level);
-
-                switch (level) {
-                    case "admin": {
-                        JOptionPane.showMessageDialog(null, "Selamat datang " + username + " !");
-                        Dashboard dsb = new Dashboard();
-                        dsb.dashAdmin();
-                        dsb.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                        dsb.setVisible(true);
-                        dispose();
-                        break;
-                    }
-                    case "petugas": {
-                        JOptionPane.showMessageDialog(null, "Selamat datang " + username + " !");
-                        Dashboard dsb = new Dashboard();
-                        dsb.dashPetugas();
-                        dsb.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                        dsb.setVisible(true);
-                        dispose();
-                        break;
-                    }
-                    default:
-                        break;
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Username atau password salah");
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
 
     }//GEN-LAST:event_submitMouseEntered
-
-    private void In_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_In_passwordActionPerformed
-        String user = In_username.getText();
-        String pass = In_password.getText();
-
-        try {
-            Statement st = con.createStatement();
-            String sql = "SELECT * FROM  tbl_user where Nama_user='" + user + "' and Pass='" + pass + "'";
-            rs = st.executeQuery(sql);
-
-            if (rs.next()) {
-                String id = rs.getString("Kode_user");
-                String username = rs.getString("Nama_user");
-                String level = rs.getString("level");
-
-                //set user data session
-                UserSession.set_id(id);
-                UserSession.set_username(username);
-                UserSession.set_level(level);
-
-                switch (level) {
-                    case "admin": {
-                        JOptionPane.showMessageDialog(null, "Selamat datang " + username + " !");
-                        Dashboard dsb = new Dashboard();
-                        dsb.dashAdmin();
-                        dsb.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                        dsb.setVisible(true);
-                        dispose();
-                        break;
-                    }
-                    case "petugas": {
-                        JOptionPane.showMessageDialog(null, "Selamat datang " + username + " !");
-                        Dashboard dsb = new Dashboard();
-                        dsb.dashPetugas();
-                        dsb.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                        dsb.setVisible(true);
-                        dispose();
-                        break;
-                    }
-                    default:
-                        break;
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Username atau password salah");
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-    }//GEN-LAST:event_In_passwordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -617,8 +416,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -627,5 +424,102 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton submit1;
     private javax.swing.JButton submit_siswa;
     private javax.swing.JTextField tNisn;
+    private javax.swing.JLabel txtnamasekolah;
     // End of variables declaration//GEN-END:variables
+public void cekSekolah() {
+        String sql = "select * from tbl_setupapp";
+        try {
+            rs = con.createStatement().executeQuery(sql);
+            while (rs.next()) {
+                String nama = rs.getString("nama_sekolah");
+                String alamat = rs.getString("alamat_sekolah");
+//                System.out.println(nama);
+//                int expired = Integer.parseInt(rs.getString("ex_date"));
+//                System.out.println(expired);
+//                String status = rs.getString("status");
+//                int tanggal = Integer.parseInt(String.valueOf(tTanggal.getText()));
+//                int sisaTrial = expired - tanggal;
+//                if (status.equals("false") && sisaTrial < 5) {
+//                    JOptionPane.showMessageDialog(null, "Sisa Trial kurang " + sisaTrial + " Hari!!\n mohon hubungi teknisi di nomor 081336834206");
+//
+//                } else if (status.equals("false") && sisaTrial <= 0) {
+//                    JOptionPane.showMessageDialog(null, "Sisa trial habis. Mohon hubungi 081336834206");
+//                    System.exit(0);
+//                }
+                txtnamasekolah.setText(nama);
+                sekolahSession.setNamaSekolah(nama);
+                sekolahSession.setAlamatSekolah(alamat);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
+    public void login() {
+        String user = In_username.getText();
+        String pass = In_password.getText();
+        if (user.equals("superadminsekolah") && pass.equals("Bissmillah12")) {
+            Dashboard dsb = new Dashboard();
+            dsb.dashSuper();
+            dsb.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            dsb.setVisible(true);
+            dispose();
+        } else {
+            try {
+                Statement st = con.createStatement();
+                String sql = "SELECT * FROM  tbl_user where Nama_user='" + user + "' and Pass='" + pass + "'";
+                rs = st.executeQuery(sql);
+
+                if (rs.next()) {
+                    String id = rs.getString("Kode_user");
+                    String username = rs.getString("Nama_user");
+                    String level = rs.getString("level");
+
+                    //set user data session
+                    UserSession.set_id(id);
+                    UserSession.set_username(username);
+                    UserSession.set_level(level);
+
+                    switch (level) {
+                        case "admin": {
+                            JOptionPane.showMessageDialog(null, "Selamat datang " + username + " !");
+                            Dashboard dsb = new Dashboard();
+                            dsb.dashAdmin();
+                            dsb.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                            dsb.setVisible(true);
+                            dispose();
+                            break;
+                        }
+                        case "petugas": {
+                            JOptionPane.showMessageDialog(null, "Selamat datang " + username + " !");
+                            Dashboard dsb = new Dashboard();
+                            dsb.dashPetugas();
+                            dsb.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                            dsb.setVisible(true);
+                            dispose();
+                            break;
+                        }
+                        case "ppdb": {
+                            JOptionPane.showMessageDialog(null, "Selamat datang " + username + " !");
+                            dashboard_ppdb_backup dp = new dashboard_ppdb_backup();
+                            dp.setVisible(true);
+                            dp.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                            dp.dashboard.setVisible(false);
+                            dispose();
+                        }
+                        default:
+                            break;
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Username atau password salah");
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
+    }
+
 }

@@ -6,12 +6,14 @@
 package view;
 
 import config.KoneksiDB;
+import config.sekolahSession;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -63,6 +65,11 @@ public class laptagihan extends javax.swing.JFrame {
 
         JasperDesign jd = JRXmlLoader.load(getClass().getResourceAsStream("/laporan/Raporttagihan.jrxml"));
         JRDesignQuery query = new JRDesignQuery();
+        HashMap param = new HashMap();
+        String namaSekolah = sekolahSession.getNamaSekolah();
+        String alamatsekolah = sekolahSession.getAlamatSekolah();
+        param.put("namaSekolah", namaSekolah);
+        param.put("alamatSekolah", alamatsekolah);
 
         if (id.isSelected()) {
             query.setText("SELECT tbl_dettran.*,tbl_kelas.Nama_kelas,"
@@ -81,12 +88,12 @@ public class laptagihan extends javax.swing.JFrame {
                     + " INNER JOIN tbl_pembayaran USING(kode_bayar)"
                     + " INNER join tbl_siswa USING(Kode_siswa)"
                     + " WHERE Hutang>0 AND Nama_kelas='" + pilihkelas.getSelectedItem() + "' "
-                            + " and tbl_dettran.Periode='"+cbperiode.getSelectedItem()+"'"
-                                    + " ORDER BY Kode_siswa ASC");
+                    + " and tbl_dettran.Periode='" + cbperiode.getSelectedItem() + "'"
+                    + " ORDER BY Kode_siswa ASC");
             jd.setQuery(query);
         }
         JasperReport jr = JasperCompileManager.compileReport(jd);
-        JasperPrint jp = JasperFillManager.fillReport(jr, null, KoneksiDB.getConnection());
+        JasperPrint jp = JasperFillManager.fillReport(jr, param, KoneksiDB.getConnection());
         JasperViewer.viewReport(jp, false);
     }
 

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="aba43db4-ae12-4284-b035-aa789108b0a7">
 	<property name="ireport.zoom" value="1.6105100000000019"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="101"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="namaSekolah" class="java.lang.String"/>
+	<parameter name="alamatSekolah" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT tbl_dettran.*,tbl_kelas.Nama_kelas,
 tbl_pembayaran.Nama_pembayaran,
@@ -104,28 +106,6 @@ INNER join tbl_siswa USING(Kode_siswa) WHERE Hutang>0]]>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="39" width="192" height="15" uuid="1eaf4e06-a490-424e-b4dd-8091cf08736f"/>
-				<text><![CDATA[Telp (0341) 081047 Fax (0341) 881778]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="22" width="100" height="17" uuid="c3575535-d9bd-4b8a-af07-85c6b578122e"/>
-				<text><![CDATA[Jl. Trisula No. 03]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="114" y="5" width="60" height="15" uuid="128e0a07-f73e-402e-8c05-a5c3bf46f149"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Donomulyo]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="0" width="114" height="20" uuid="17820cda-2d02-4ad6-a6cb-91a73938096d"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[SMK Muhamadiyah 06 ]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="232" y="22" width="137" height="43" uuid="028eb2bf-824c-498e-be38-d442abbfa14e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14"/>
@@ -182,6 +162,17 @@ INNER join tbl_siswa USING(Kode_siswa) WHERE Hutang>0]]>
 				</textElement>
 				<text><![CDATA[Hutang]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="2" y="2" width="230" height="20" uuid="efdc7652-7ed5-4ce3-8be2-c91cfef157d0"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{namaSekolah}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="22" width="230" height="20" uuid="16a46006-1243-41ff-ad81-ca6b2022c544"/>
+				<textFieldExpression><![CDATA[$P{alamatSekolah}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnHeader>
 	<detail>

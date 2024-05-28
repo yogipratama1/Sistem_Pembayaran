@@ -6,10 +6,12 @@
 package view;
 
 import config.KoneksiDB;
+import config.sekolahSession;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashMap;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -69,6 +71,12 @@ public class laporanKelas extends javax.swing.JFrame {
     public void laporanSiswa() throws Exception {
         JasperDesign jd = JRXmlLoader.load(getClass().getResourceAsStream("/laporan/siswa.jrxml"));
         JRDesignQuery query = new JRDesignQuery();
+        HashMap param = new HashMap();
+        String namaSekolah = sekolahSession.getNamaSekolah();
+        String alamatsekolah = sekolahSession.getAlamatSekolah();
+        
+        param.put("namaSekolah", namaSekolah);
+        param.put("alamatSekolah", alamatsekolah);
 
         if (SemuaSiswa.isSelected()) {
             query.setText("SELECT tbl_siswa.Nama_siswa,tbl_kelas.Nama_kelas,tbl_setupkelas.* FROM tbl_setupkelas "
@@ -83,7 +91,7 @@ public class laporanKelas extends javax.swing.JFrame {
             jd.setQuery(query);
         }
         JasperReport jr = JasperCompileManager.compileReport(jd);
-        JasperPrint jp = JasperFillManager.fillReport(jr, null, KoneksiDB.getConnection());
+        JasperPrint jp = JasperFillManager.fillReport(jr, param, KoneksiDB.getConnection());
         JasperViewer.viewReport(jp, false);
     }
 

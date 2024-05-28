@@ -31,7 +31,7 @@ public class CRUDjpembayaran extends javax.swing.JFrame {
         initComponents();
         tabelpembayaran();
         comboPeriode();
-        tIDpembayaran.setEnabled(false);
+//        tIDpembayaran.setEnabled(false);
         btnupdate.setEnabled(false);
         tIDpembayaran.setText("Auto Fill");
     }
@@ -105,7 +105,6 @@ public class CRUDjpembayaran extends javax.swing.JFrame {
         });
         getContentPane().add(tCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 180, 470, 40));
 
-        tbljenispem.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         tbljenispem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -148,21 +147,19 @@ public class CRUDjpembayaran extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("NAMA PEMBAYARAN");
 
-        tnamapembayaran.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         tnamapembayaran.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tnamapembayaranActionPerformed(evt);
             }
         });
 
-        tIDpembayaran.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tIDpembayaran.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         tIDpembayaran.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tIDpembayaranActionPerformed(evt);
             }
         });
 
-        biaya.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         biaya.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 biayaActionPerformed(evt);
@@ -199,8 +196,7 @@ public class CRUDjpembayaran extends javax.swing.JFrame {
             }
         });
 
-        tKelas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        tKelas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kelas 1", "Kelas 2", "Kelas 3" }));
+        tKelas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kelas 0", "Kelas 1", "Kelas 2", "Kelas 3" }));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("BIAYA ");
@@ -208,7 +204,6 @@ public class CRUDjpembayaran extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("PERIODE");
 
-        tperiode.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         tperiode.setMaximumRowCount(10);
         tperiode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -307,7 +302,37 @@ public class CRUDjpembayaran extends javax.swing.JFrame {
     }//GEN-LAST:event_tIDpembayaranActionPerformed
 
     private void biayaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_biayaActionPerformed
-        // TODO add your handling code here:
+        String nama = tnamapembayaran.getText();
+        String Biaya = biaya.getText();
+        String kelas = tKelas.getSelectedItem().toString();
+        String periode = tperiode.getSelectedItem().toString();
+
+        if (nama.length() == 0 || Biaya.length() == 0) {
+            JOptionPane.showMessageDialog(null, "Masukan data dengan benar!!");
+
+        } else {
+            ID_AUTO();
+            String id = tIDpembayaran.getText();
+
+            try {
+                String sql = "SELECT * FROM tbl_pembayaran where Nama_pembayaran='" + nama + "' AND group_kelas='" + kelas + "' AND Periode='" + periode + "'";
+                rs = con.createStatement().executeQuery(sql);
+                System.out.println(sql);
+                if (rs.next()) {
+
+                    JOptionPane.showMessageDialog(null, "Nama Pembayaran sudah dibuat pada periode dan grup kelas ini!!");
+
+                } else {
+                    System.out.println("masuk sini");
+                    con.createStatement().executeUpdate("INSERT INTO tbl_pembayaran VALUE('" + id + "','" + nama + "','" + Biaya + "','" + kelas + "','" + periode + "')");
+                    JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan");
+                    Resetform();
+                }
+            } catch (Exception ex) {
+                System.out.println("" + ex);
+                JOptionPane.showMessageDialog(null, "Gagal !!" + ex);
+            }
+        }
     }//GEN-LAST:event_biayaActionPerformed
 
     private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
@@ -367,64 +392,70 @@ public class CRUDjpembayaran extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Masukan data dengan benar!!");
 
         } else {
+
             ID_AUTO();
             String id = tIDpembayaran.getText();
 
             try {
-                con.createStatement().executeUpdate("INSERT INTO tbl_pembayaran VALUE('" + id + "','" + nama + "','" + Biaya + "','" + kelas + "','" + periode + "')");
+                String sql = "SELECT * FROM tbl_pembayaran where Nama_pembayaran='" + nama + "' AND group_kelas='" + kelas + "' AND Periode='" + periode + "'";
+                rs = con.createStatement().executeQuery(sql);
+                if (rs.next()) {
 
-                String sql = "select *,tbl_kelas.group_kelas from tbl_setupkelas"
-                        + " inner join tbl_kelas using(Kode_kelas)"
-                        + " where Periode='" + periode + "' and group_kelas='" + kelas + "'";
-                System.out.println(sql);
-                try {
-                    rs = con.createStatement().executeQuery(sql);
-                    while (rs.next()) {
-                        String idsiswa = rs.getString("kode_siswa");
-                        String kodekelas = rs.getString("Kode_kelas");
-                        try {
-                            con.createStatement().executeUpdate("insert into tbl_dettran value('" + periode + "',"
-                                    + "'" + idsiswa + "','" + kodekelas + "','" + id + "','" + Biaya + "','0','" + kelas + "')");
-                        } catch (Exception e) {
-                            JOptionPane.showMessageDialog(null, "Gagal Menambahkan Tagihan Siswa " + e);
-                            System.out.println(e);
+                    JOptionPane.showMessageDialog(null, "Nama Pembayaran sudah dibuat pada periode dan grup kelas ini!!");
+                    System.out.println(sql);
+
+                } else {
+                    System.out.println("masuk sini"+id);
+                    
+                    
+                    con.createStatement().executeUpdate("INSERT INTO tbl_pembayaran VALUE('" + id + "','" + nama + "','" + Biaya + "','" + kelas + "','" + periode + "')");
+                    //new feature to add pembayaran to tagihan siswa
+                    String sqlCheckSiswa = "select *,tbl_kelas.group_kelas from tbl_setupkelas"
+                            + " inner join tbl_kelas using(Kode_kelas)"
+                            + " where Periode='" + periode + "' and group_kelas='" + kelas + "'";
+                    System.out.println(sqlCheckSiswa);
+                    try {
+                        rs = con.createStatement().executeQuery(sqlCheckSiswa);
+                        while (rs.next()) {
+                            String idsiswa = rs.getString("kode_siswa");
+                            String kodekelas = rs.getString("Kode_kelas");
+                            try {
+                                con.createStatement().executeUpdate("insert into tbl_dettran value('" + periode + "',"
+                                        + "'" + idsiswa + "','" + kodekelas + "','" + id + "','" + Biaya + "','0','" + kelas + "')");
+                            } catch (Exception e) {
+                                JOptionPane.showMessageDialog(null, "Gagal Menambahkan Tagihan Siswa " + e);
+                                System.out.println(e);
+                            }
+
                         }
-
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "Error mendapatkan data siswa !! " + e);
+                        System.out.println(e);
                     }
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Error mendapatkan data siswa !! " + e);
-                    System.out.println(e);
+
+                    JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan");
+                    Resetform();
+
                 }
-                JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan");
-                Resetform();
+
             } catch (Exception ex) {
                 System.out.println("" + ex);
-                JOptionPane.showMessageDialog(null, "Gagal !!");
+                JOptionPane.showMessageDialog(null, "Gagal !!" + ex);
             }
         }
 
     }//GEN-LAST:event_btnsimpanActionPerformed
 
     private void btnhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapusActionPerformed
-        int keputusan = JOptionPane.showConfirmDialog(this, "Anda Yakin mau Menghapus Data Ini? ");
-        switch (keputusan) {
-            case JOptionPane.YES_OPTION:
-                try {
-                    con.createStatement().executeUpdate("delete from tbl_pembayaran where Kode_bayar = '" + model.getValueAt(tbljenispem.getSelectedRow(), 0) + "'");
-                    con.createStatement().executeUpdate("delete from tbl_dettran where Kode_bayar='"+model.getValueAt(tbljenispem.getSelectedRow(), 0)+"'");
-                    JOptionPane.showMessageDialog(null, "Berhasil");
+        try {
+            con.createStatement().executeUpdate("delete from tbl_pembayaran where Kode_bayar = '" + model.getValueAt(tbljenispem.getSelectedRow(), 0) + "'");
+            JOptionPane.showMessageDialog(null, "Berhasil");
 
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Gagal !!!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Gagal !!!");
 
-                }
-                Resetform();
-                break;
-            case JOptionPane.NO_OPTION:
-                break;
         }
-
-
+        Resetform();
     }//GEN-LAST:event_btnhapusActionPerformed
 
     private void btnrefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrefreshActionPerformed
@@ -519,7 +550,7 @@ public class CRUDjpembayaran extends javax.swing.JFrame {
         String[] judul = {"Kode Pembayaran", "Nama Pembayaran", "Biaya", "Kelas", "Periode"};
         model = new DefaultTableModel(judul, 0);
         tbljenispem.setModel(model);
-        String sql = "SELECT * FROM tbl_pembayaran where Nama_pembayaran like '%" + tCari.getText() + "%'OR Kode_bayar like '%" + tCari.getText() + "%'";
+        String sql = "SELECT * FROM tbl_pembayaran where Nama_pembayaran like '%" + tCari.getText() + "%'OR Kode_bayar like '%" + tCari.getText() + "%' ORDER BY Kode_bayar DESC";
 
         try {
             rs = con.createStatement().executeQuery(sql);
@@ -541,7 +572,7 @@ public class CRUDjpembayaran extends javax.swing.JFrame {
     }
 
     private void comboPeriode() {
-        String sql = "SELECT * FROM tbl_periode";
+        String sql = "SELECT * FROM tbl_periode ORDER BY created_at DESC";
 
         try {
             pst = con.prepareStatement(sql);
@@ -551,6 +582,7 @@ public class CRUDjpembayaran extends javax.swing.JFrame {
 
             }
         } catch (Exception e) {
+            System.out.println(e);
         }
     }
 
@@ -570,6 +602,7 @@ public class CRUDjpembayaran extends javax.swing.JFrame {
                     for (int a = 0; a < 1; a++) {
                         nomor = nomor;
                     }
+                    System.out.println(nomor);
                     tIDpembayaran.setText(nomor);
                 }
             }

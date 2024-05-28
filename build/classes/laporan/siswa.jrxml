@@ -3,6 +3,8 @@
 	<property name="ireport.zoom" value="1.7715610000000013"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="namaSekolah" class="java.lang.String"/>
+	<parameter name="alamatSekolah" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT tbl_siswa.Nama_siswa,tbl_kelas.Nama_kelas,tbl_setupkelas.* FROM tbl_setupkelas INNER JOIN tbl_siswa USING(Kode_siswa) INNER JOIN tbl_kelas USING (Kode_Kelas)]]>
 	</queryString>
@@ -26,28 +28,6 @@
 	</background>
 	<title>
 		<band height="79" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="1" width="114" height="20" uuid="17820cda-2d02-4ad6-a6cb-91a73938096d"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[SMK Muhamadiyah 06 ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="41" width="100" height="17" uuid="c3575535-d9bd-4b8a-af07-85c6b578122e"/>
-				<text><![CDATA[Jl. Trisula No. 03]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="60" width="192" height="15" uuid="1eaf4e06-a490-424e-b4dd-8091cf08736f"/>
-				<text><![CDATA[Telp (0341) 081047 Fax (0341) 881778]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="1" y="23" width="60" height="15" uuid="128e0a07-f73e-402e-8c05-a5c3bf46f149"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Donomulyo]]></text>
-			</staticText>
 			<staticText>
 				<reportElement x="209" y="50" width="137" height="20" uuid="028eb2bf-824c-498e-be38-d442abbfa14e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -76,6 +56,17 @@
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="209" height="20" uuid="0b1aa4f9-516c-4306-8058-e5c5a90f768f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{namaSekolah}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="20" width="209" height="20" uuid="fb3dc26e-2c06-4b7f-b0fe-b24c85c2a2d9"/>
+				<textFieldExpression><![CDATA[$P{alamatSekolah}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -100,7 +91,7 @@
 				<reportElement x="432" y="24" width="122" height="20" uuid="502e6d3b-93b8-45b8-8799-47198b648c94"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="474" y="24" width="48" height="20" uuid="c52f1e09-2340-47dc-9143-7fb4b24a1ce7"/>
+				<reportElement x="465" y="24" width="48" height="20" uuid="c52f1e09-2340-47dc-9143-7fb4b24a1ce7"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
@@ -108,7 +99,7 @@
 			</staticText>
 			<staticText>
 				<reportElement x="130" y="24" width="79" height="20" uuid="82be36e2-33b7-4c25-9c95-6094acc1f771"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[ID Siswa]]></text>
@@ -117,7 +108,7 @@
 				<reportElement x="0" y="24" width="114" height="20" uuid="9208ce5c-216d-4889-adaa-08f050119088"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="33" y="26" width="46" height="15" uuid="1576643e-68ce-4810-838b-d1b0c533d5ed"/>
+				<reportElement x="14" y="26" width="65" height="15" uuid="1576643e-68ce-4810-838b-d1b0c533d5ed"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -141,7 +132,7 @@
 				<reportElement x="432" y="-1" width="122" height="20" uuid="502e6d3b-93b8-45b8-8799-47198b648c94"/>
 			</rectangle>
 			<textField>
-				<reportElement x="273" y="1" width="159" height="20" uuid="4ae50252-b0a4-487a-b295-ff8aa3d109ad"/>
+				<reportElement x="241" y="1" width="191" height="20" uuid="4ae50252-b0a4-487a-b295-ff8aa3d109ad"/>
 				<textElement textAlignment="Justified"/>
 				<textFieldExpression><![CDATA[$F{Nama_siswa}]]></textFieldExpression>
 			</textField>

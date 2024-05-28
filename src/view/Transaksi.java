@@ -7,6 +7,7 @@ package view;
 
 import config.KoneksiDB;
 import config.UserSession;
+import config.sekolahSession;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -80,6 +81,7 @@ public class Transaksi extends javax.swing.JFrame {
         formatRp.setMonetaryDecimalSeparator(',');
         formatRp.setGroupingSeparator('.');
         kursIndonesia.setDecimalFormatSymbols(formatRp);
+
     }
     Statement st;
     Connection con = KoneksiDB.getConnection();
@@ -99,6 +101,12 @@ public class Transaksi extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        form_view_siswa = new javax.swing.JFrame();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbl_siswa = new javax.swing.JTable();
+        text_cari_siswa = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         tTanggal = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -147,10 +155,81 @@ public class Transaksi extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jmlhutang = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        btnsettagihan = new javax.swing.JButton();
+        button_set_tagihan = new javax.swing.JButton();
         BG = new javax.swing.JLabel();
         idjpBL = new javax.swing.JLabel();
         tkembaliBL = new javax.swing.JTextField();
+
+        form_view_siswa.setLocation(new java.awt.Point(0, 0));
+        form_view_siswa.setMinimumSize(new java.awt.Dimension(1097, 561));
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
+        tbl_siswa.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tbl_siswa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_siswaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl_siswa);
+
+        text_cari_siswa.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        text_cari_siswa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                text_cari_siswaKeyReleased(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setText("CARI");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1077, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(jLabel1)
+                .addGap(28, 28, 28)
+                .addComponent(text_cari_siswa, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(text_cari_siswa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout form_view_siswaLayout = new javax.swing.GroupLayout(form_view_siswa.getContentPane());
+        form_view_siswa.getContentPane().setLayout(form_view_siswaLayout);
+        form_view_siswaLayout.setHorizontalGroup(
+            form_view_siswaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        form_view_siswaLayout.setVerticalGroup(
+            form_view_siswaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -606,15 +685,15 @@ public class Transaksi extends javax.swing.JFrame {
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 130, 50));
 
-        btnsettagihan.setBackground(new java.awt.Color(0, 204, 204));
-        btnsettagihan.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnsettagihan.setText("Setting tagihan");
-        btnsettagihan.addActionListener(new java.awt.event.ActionListener() {
+        button_set_tagihan.setBackground(new java.awt.Color(0, 204, 204));
+        button_set_tagihan.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        button_set_tagihan.setText("Setting tagihan");
+        button_set_tagihan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnsettagihanActionPerformed(evt);
+                button_set_tagihanActionPerformed(evt);
             }
         });
-        getContentPane().add(btnsettagihan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 120, 150, 40));
+        getContentPane().add(button_set_tagihan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 120, 150, 40));
 
         BG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/BG-pembayaran.png"))); // NOI18N
         getContentPane().add(BG, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -857,8 +936,8 @@ public class Transaksi extends javax.swing.JFrame {
     }//GEN-LAST:event_tbltagihanKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new tabelsiswa3().setVisible(true);
-        dispose();
+        form_view_siswa.setVisible(true);
+        viewSiswa();
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -871,7 +950,7 @@ public class Transaksi extends javax.swing.JFrame {
     }//GEN-LAST:event_tIDsiswaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       
+
         String kodesiswa = tIDsiswa.getText();
         String nmsiswa = namasiswa.getText();
         Transaksi_persiswa lb = new Transaksi_persiswa();
@@ -882,14 +961,39 @@ public class Transaksi extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void btnsettagihanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsettagihanActionPerformed
-        setting_tagihan st = new setting_tagihan();
-        st.tIDsiswa.setText(tIDsiswa.getText());
-        st.namasiswa.setText(namasiswa.getText());
-        st.tperiode.setText(cbperiode.getSelectedItem().toString());
-        st.setVisible(true);
-        st.tabelSiswa();
-    }//GEN-LAST:event_btnsettagihanActionPerformed
+    private void button_set_tagihanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_set_tagihanActionPerformed
+        if (level.equals("petugas")) {
+            JOptionPane.showMessageDialog(null, "Hanya bisa diakses admin");
+        } else {
+            setting_tagihan st = new setting_tagihan();
+            st.tIDsiswa.setText(tIDsiswa.getText());
+            st.namasiswa.setText(namasiswa.getText());
+            st.tperiode.setText(cbperiode.getSelectedItem().toString());
+            st.setVisible(true);
+            st.tabelSiswa();
+        }
+    }//GEN-LAST:event_button_set_tagihanActionPerformed
+
+    private void tbl_siswaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_siswaMouseClicked
+        int i = tbl_siswa.getSelectedRow();
+        DefaultTableModel dataModel = (DefaultTableModel) tbl_siswa.getModel();
+        String kodesiswa = dataModel.getValueAt(i, 0).toString();
+        String nama_siswa = dataModel.getValueAt(i, 1).toString();
+        String kelas = dataModel.getValueAt(i, 4).toString();
+        String idkelas = dataModel.getValueAt(i, 5).toString();
+
+        tIDsiswa.setText(kodesiswa);
+        namasiswa.setText(nama_siswa);
+        tkelas.setText(kelas);
+        tIDkelas.setText(idkelas);
+        form_view_siswa.setVisible(false);
+        
+        btnpelunasan.setEnabled(true);
+    }//GEN-LAST:event_tbl_siswaMouseClicked
+
+    private void text_cari_siswaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_text_cari_siswaKeyReleased
+viewSiswa();        // TODO add your handling code here:
+    }//GEN-LAST:event_text_cari_siswaKeyReleased
 
     /**
      * @param args the command line arguments
@@ -921,7 +1025,9 @@ public class Transaksi extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Transaksi().setVisible(true);
+                Transaksi trx = new Transaksi();
+                trx.setVisible(true);
+                trx.setExtendedState(JFrame.MAXIMIZED_BOTH);
             }
         });
     }
@@ -935,11 +1041,13 @@ public class Transaksi extends javax.swing.JFrame {
     private javax.swing.JButton btncetak;
     private javax.swing.JButton btnhapus;
     private javax.swing.JButton btnpelunasan;
-    public javax.swing.JButton btnsettagihan;
+    public javax.swing.JButton button_set_tagihan;
     private javax.swing.JComboBox<String> cbperiode;
+    private javax.swing.JFrame form_view_siswa;
     private javax.swing.JLabel idjpBL;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -959,6 +1067,8 @@ public class Transaksi extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel jbayar;
@@ -973,8 +1083,10 @@ public class Transaksi extends javax.swing.JFrame {
     private javax.swing.JLabel tIDtransaksi;
     private javax.swing.JTextField tTanggal;
     private javax.swing.JTextField tTotal;
+    private javax.swing.JTable tbl_siswa;
     private javax.swing.JTable tblpembayaran;
     private javax.swing.JTable tbltagihan;
+    private javax.swing.JTextField text_cari_siswa;
     public javax.swing.JLabel tkelas;
     private javax.swing.JTextField tkembaliBL;
     private javax.swing.JTextField tkembalian;
@@ -990,7 +1102,7 @@ public class Transaksi extends javax.swing.JFrame {
                 + " where Kode_siswa='" + tIDsiswa.getText() + "' and Periode='" + cbTA + "'";
         try {
             rs = con.createStatement().executeQuery(sql);
-            while (rs.next()) {
+            if (rs.next()) {
                 tkelas.setText(rs.getString("Nama_kelas"));
                 namasiswa.setText(rs.getString("Nama_siswa"));
                 tIDkelas.setText(rs.getString("kode_kelas"));
@@ -1009,7 +1121,7 @@ public class Transaksi extends javax.swing.JFrame {
 
     public void ID_AUTO() {
         try {
-            String sql = "Select max(right(no_faktur,6)) as no_idtransaksi from tbl_transaksi";
+            String sql = "Select max(right(no_faktur,5)) as no_idtransaksi from tbl_transaksi";
             rs = con.createStatement().executeQuery(sql);
             while (rs.next()) {
                 if (rs.first() == false) {
@@ -1018,12 +1130,13 @@ public class Transaksi extends javax.swing.JFrame {
                 } else {
                     rs.last();
                     int autoid = rs.getInt(1) + 1;
-                    String nomor = String.valueOf(autoid);
-
-                    for (int a = 0; a < 2; a++) {
-                        nomor = "0" + nomor;
+                    if (autoid <= 99) {
+                        tIDtransaksi.setText("Kwi-0000" + autoid);
+                    } else if (autoid > 99 && autoid <= 999) {
+                        tIDtransaksi.setText("Kwi-000" + autoid);
+                    } else if (autoid > 999) {
+                        tIDtransaksi.setText("Kwi-00" + autoid);
                     }
-                    tIDtransaksi.setText("Kwi-" + nomor);
                 }
             }
         } catch (Exception e) {
@@ -1178,7 +1291,6 @@ public class Transaksi extends javax.swing.JFrame {
                     int updatelunas = lunas + bayar;
                     con.createStatement().executeUpdate("Update tbl_dettran set Hutang='" + updatehutang + "',"
                             + " Lunas='" + updatelunas + "' where Kode_siswa='" + idsiswa + "' and Kode_bayar='" + kodebayar + "'");
-                    
 
                 }
 
@@ -1229,6 +1341,10 @@ public class Transaksi extends javax.swing.JFrame {
         JRDesignQuery query = new JRDesignQuery();
         HashMap param = new HashMap();
         param.put("total", total);
+        String namaSekolah = sekolahSession.getNamaSekolah();
+        String alamatsekolah = sekolahSession.getAlamatSekolah();
+        param.put("namaSekolah", namaSekolah);
+        param.put("alamatSekolah", alamatsekolah);
         query.setText("select tbl_siswa.Nama_siswa,tbl_dettransaksi.*,tbl_transaksi.*,"
                 + "tbl_pembayaran.Nama_pembayaran,tbl_kelas.Nama_kelas from tbl_transaksi "
                 + " inner join tbl_siswa using(Kode_siswa) "
@@ -1251,6 +1367,34 @@ public class Transaksi extends javax.swing.JFrame {
             total += amount;
         }
         jmlhutang.setText("" + String.valueOf(kursIndonesia.format(total)));
+    }
+
+    public void viewSiswa() {
+        String[] judul = {"Kode Siswa", "Nama Siswa", "Alamat", "No Telepon", "Kelas", "Kode Kelas"};
+        model = new DefaultTableModel(judul, 0);
+        tbl_siswa.setModel(model);
+        try {
+            String sql = "SELECT *,tbl_setupkelas.*, tbl_kelas.Nama_kelas"
+                    + " FROM tbl_setupkelas INNER join tbl_siswa using(Kode_siswa)"
+                    + " inner join tbl_kelas using(kode_kelas)"
+                    + " where Nama_siswa like'%" + text_cari_siswa.getText() + "%' OR Kode_siswa like '%" + text_cari_siswa.getText() + "' ORDER BY tbl_siswa.Kode_siswa DESC";
+            System.out.println(sql);
+            rs = con.createStatement().executeQuery(sql);
+            while (rs.next()) {
+                String kodesiswa = rs.getString("Kode_siswa");
+                String namasiswa = rs.getString("Nama_siswa");
+                String kelas = rs.getString("Nama_kelas");
+                String kodekelas = rs.getString("Kode_kelas");
+                String alamat = rs.getString("Alamat");
+                String noTelepon = rs.getString("No_telepon");
+
+                String[] data = {kodesiswa, namasiswa, alamat, noTelepon, kelas, kodekelas};
+                model.addRow(data);
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
 }

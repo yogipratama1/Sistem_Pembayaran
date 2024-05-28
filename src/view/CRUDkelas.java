@@ -25,6 +25,7 @@ public class CRUDkelas extends javax.swing.JFrame {
      * Creates new form CRUDkelas
      */
     String level = UserSession.get_level();
+
     public CRUDkelas() {
         initComponents();
         tabelKelas();
@@ -97,7 +98,6 @@ public class CRUDkelas extends javax.swing.JFrame {
         });
         getContentPane().add(tCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 180, 470, 40));
 
-        tblkelas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         tblkelas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -140,14 +140,12 @@ public class CRUDkelas extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("NAMA KELAS");
 
-        tIDkelas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         tIDkelas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tIDkelasActionPerformed(evt);
             }
         });
 
-        tNamakelas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         tNamakelas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tNamakelasActionPerformed(evt);
@@ -184,8 +182,8 @@ public class CRUDkelas extends javax.swing.JFrame {
             }
         });
 
-        tgrupkelas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        tgrupkelas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kelas 1", "Kelas 2", "Kelas 3" }));
+        tgrupkelas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        tgrupkelas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kelas 0", "Kelas 1", "Kelas 2", "Kelas 3" }));
         tgrupkelas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tgrupkelasActionPerformed(evt);
@@ -283,28 +281,26 @@ public class CRUDkelas extends javax.swing.JFrame {
     }//GEN-LAST:event_tCariActionPerformed
 
     private void btnkembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnkembaliActionPerformed
-       switch (level) {
-                    case "admin":
-                    {
-                        Dashboard dsb = new Dashboard();
-                        dsb.dashAdmin();
-                        dsb.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                        dsb.setVisible(true);
-                        dispose();
-                        break;
-                    }
-                    case "petugas":
-                    {
-                        Dashboard dsb = new Dashboard();
-                        dsb.dashPetugas();
-                        dsb.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                        dsb.setVisible(true);
-                        dispose();
-                        break;
-                    }
-                    default:
-                    break;
-                }
+        switch (level) {
+            case "admin": {
+                Dashboard dsb = new Dashboard();
+                dsb.dashAdmin();
+                dsb.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                dsb.setVisible(true);
+                dispose();
+                break;
+            }
+            case "petugas": {
+                Dashboard dsb = new Dashboard();
+                dsb.dashPetugas();
+                dsb.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                dsb.setVisible(true);
+                dispose();
+                break;
+            }
+            default:
+                break;
+        }
     }//GEN-LAST:event_btnkembaliActionPerformed
 
     private void tCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tCariKeyReleased
@@ -333,26 +329,24 @@ public class CRUDkelas extends javax.swing.JFrame {
         String nama = tNamakelas.getText();
         String grup = tgrupkelas.getSelectedItem().toString();
 
-        
-            if (nama.length() == 0) {
-                JOptionPane.showMessageDialog(null, "Masukan Data Dengan Benar!!");
-                btnupdate.setEnabled(false);
-                btnhapus.setEnabled(false);
+        if (nama.length() == 0) {
+            JOptionPane.showMessageDialog(null, "Masukan Data Dengan Benar!!");
+            btnupdate.setEnabled(false);
+            btnhapus.setEnabled(false);
 
-            } else {
-                try {
-                    ID_AUTO();
-                    String id = tIDkelas.getText();
-                    con.createStatement().executeUpdate("INSERT INTO tbl_kelas VALUE('"+id+"','" + nama + "','" + grup + "')");
-                    JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan");
-                    Resetform();
-                } catch (Exception ex) {
-                    System.out.println("" + ex);
-                    JOptionPane.showMessageDialog(null, "Gagal !!");
-                }
+        } else {
+            try {
+                ID_AUTO();
+                String id = tIDkelas.getText();
+                con.createStatement().executeUpdate("INSERT INTO tbl_kelas VALUE('" + id + "','" + nama + "','" + grup + "')");
+                JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan");
+                Resetform();
+            } catch (Exception ex) {
+                System.out.println("" + ex);
+                JOptionPane.showMessageDialog(null, "Gagal !!");
             }
+        }
 
-       
 
     }//GEN-LAST:event_btnsimpanActionPerformed
 
@@ -479,10 +473,12 @@ public class CRUDkelas extends javax.swing.JFrame {
                     int autoid = rs.getInt(1) + 1;
                     String nomor = String.valueOf(autoid);
 
-                    for (int a = 0; a < 1; a++) {
-                        nomor = nomor;
+                    if (autoid <= 9) {
+                        tIDkelas.setText("KLS-0"+nomor);
+                    } else {
+                        tIDkelas.setText("KLS-" + nomor);
                     }
-                    tIDkelas.setText("KLS-" + nomor);
+
                 }
             }
         } catch (Exception e) {

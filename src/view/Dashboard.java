@@ -6,7 +6,7 @@
 package view;
 
 import config.KoneksiDB;
-import config.UserSession;
+import config.*;
 
 import java.sql.Connection;
 import javax.swing.table.DefaultTableModel;
@@ -15,6 +15,8 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -30,7 +32,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author YOGI
  */
 public class Dashboard extends javax.swing.JFrame {
-
+    
     Connection con = KoneksiDB.getConnection();
     ResultSet rs;
     DefaultTableModel model;
@@ -41,57 +43,88 @@ public class Dashboard extends javax.swing.JFrame {
     String nama = UserSession.get_nama();
     String level = UserSession.get_level();
     String tahunajaran = UserSession.getTahunajaran();
-
+    String namaSekolah = sekolahSession.getNamaSekolah();
+    String alamatSekolah = sekolahSession.getAlamatSekolah();
+    
     DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
     DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
-
+    
     public Dashboard() {
         initComponents();
+        txtnamasekolah.setText(namaSekolah);
+        txtalamatsekolah.setText(alamatSekolah);
         tampiltransaksi();
         tanggal();
-
+        
         formatRp.setCurrencySymbol("Rp. ");
         formatRp.setMonetaryDecimalSeparator(',');
         formatRp.setGroupingSeparator('.');
         kursIndonesia.setDecimalFormatSymbols(formatRp);
         totaltransaksi();
-
+        
     }
-
+    
+    public void dashSuper() {
+        jumlahDataMaster();
+        t_Level.setText("SUPER ADMIN");
+        t_user.setText(username);
+        txtnamasekolah.setText(namaSekolah);
+        txtalamatsekolah.setText(alamatSekolah);
+    }
+    
     public void dashAdmin() {
         jumlahDataMaster();
         t_Level.setText("ADMINISTRATOR");
         t_user.setText(username);
-
+        
+        settingApp.setVisible(false);
+        txtnamasekolah.setText(namaSekolah);
+        txtalamatsekolah.setText(alamatSekolah);
+        
     }
-
+    
     public void dashPetugas() {
         jumlahDataMaster();
         t_Level.setText("PETUGAS");
         t_user.setText(username);
-
+        
+        ppdb.setVisible(false);
+        tambahjenispem.setVisible(false);
+        settingApp.setVisible(false);
         tambahAdmin.setVisible(false);
         setTagihan.setVisible(false);
     }
-
+    
     public void laporankelas() throws Exception {
-
+        
         JasperDesign jd = JRXmlLoader.load(getClass().getResourceAsStream("/laporan/kelas.jrxml"));
         JRDesignQuery query = new JRDesignQuery();
+        HashMap param = new HashMap();
+        String namaSekolah = sekolahSession.getNamaSekolah();
+        String alamatsekolah = sekolahSession.getAlamatSekolah();
+        
+        param.put("namaSekolah", namaSekolah);
+        param.put("alamatSekolah", alamatsekolah);
         query.setText("select * from tbl_kelas");
         jd.setQuery(query);
         JasperReport jr = JasperCompileManager.compileReport(jd);
-        JasperPrint jp = JasperFillManager.fillReport(jr, null, con);
+        JasperPrint jp = JasperFillManager.fillReport(jr, param, con);
         JasperViewer.viewReport(jp, false);
     }
-
+    
     public void laporanJenisPembayaran() throws Exception {
         JasperDesign jd = JRXmlLoader.load(getClass().getResourceAsStream("/laporan/jenisPembayaran.jrxml"));
         JRDesignQuery query = new JRDesignQuery();
+        HashMap param = new HashMap();
+        String namaSekolah = sekolahSession.getNamaSekolah();
+        String alamatsekolah = sekolahSession.getAlamatSekolah();
+        
+        param.put("namaSekolah", namaSekolah);
+        param.put("alamatSekolah", alamatsekolah);
         query.setText("select * from tbl_pembayaran");
         jd.setQuery(query);
         JasperReport jr = JasperCompileManager.compileReport(jd);
-        JasperPrint jp = JasperFillManager.fillReport(jr, null, con);
+        JasperPrint jp = JasperFillManager.fillReport(jr, param, con);
         JasperViewer.viewReport(jp, false);
     }
 
@@ -105,7 +138,21 @@ public class Dashboard extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuItem2 = new javax.swing.JMenuItem();
+        setupApp = new javax.swing.JFrame();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        inNamasekolah = new javax.swing.JTextField();
+        inAlamatasekolah = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         TA3 = new javax.swing.JLabel();
@@ -116,7 +163,7 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         TA1 = new javax.swing.JLabel();
         jml_siswa = new javax.swing.JLabel();
-        SMK = new javax.swing.JLabel();
+        txtalamatsekolah = new javax.swing.JLabel();
         SistemP = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         t_Level = new javax.swing.JLabel();
@@ -127,6 +174,7 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jumlahtransaksi = new javax.swing.JTextField();
+        txtnamasekolah = new javax.swing.JLabel();
         bg = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -137,10 +185,16 @@ public class Dashboard extends javax.swing.JFrame {
         tambahAdmin = new javax.swing.JMenuItem();
         tambahkelas = new javax.swing.JMenuItem();
         tambahjenispem = new javax.swing.JMenuItem();
-        siswa = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
         setTagihan = new javax.swing.JMenuItem();
+        settingApp = new javax.swing.JMenuItem();
+        ppdb = new javax.swing.JMenuItem();
         mnTransaksi = new javax.swing.JMenu();
         Pembayaran = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         DaftarTransaksi = new javax.swing.JMenuItem();
         mnLaporan = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
@@ -155,15 +209,132 @@ public class Dashboard extends javax.swing.JFrame {
 
         jMenuItem2.setText("jMenuItem2");
 
+        setupApp.setMinimumSize(new java.awt.Dimension(674, 530));
+        setupApp.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setBackground(new java.awt.Color(0, 153, 153));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setText("Set Up Application");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(262, 262, 262)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(226, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jLabel3)
+                .addContainerGap(45, Short.MAX_VALUE))
+        );
+
+        setupApp.getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 674, -1));
+
+        jPanel6.setBackground(new java.awt.Color(0, 204, 204));
+
+        inNamasekolah.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        inAlamatasekolah.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setText("Nama Sekolah");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setText("Alamat Sekolah");
+
+        jButton1.setBackground(new java.awt.Color(51, 51, 255));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton1.setText("Simpan");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setText("*note : Yang perlu dilakukan pertama agar siswa mendapatkan tagihan");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel8.setText("1. Tambah nama siswa di fitur siswa");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setText("2. Kemudian tambahkan tahun ajaran di fitur siswa juga (Jika sudah ada, dilewati saja)");
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setText("3. Tambahkan kelas di fitur kelas (Jika sudah ada, dilewati saja)");
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel11.setText("4. Tambahkan jenis pembayaran di fitur jenis pembayaran (Jika sudah ada, dilewati saja)");
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel13.setText("5. Alokasi kan siswa ke kelas yang sesuai");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(inAlamatasekolah, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inNamasekolah, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(153, 153, 153))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(89, 89, 89)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel7))
+                .addContainerGap(87, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(inNamasekolah, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(inAlamatasekolah, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel10)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel11)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel13)
+                .addContainerGap(116, Short.MAX_VALUE))
+        );
+
+        setupApp.getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 680, 480));
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Aplikasi Pembayaran");
         setBackground(new java.awt.Color(0, 0, 255));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 5)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/logo.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 120, 110));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -263,15 +434,15 @@ public class Dashboard extends javax.swing.JFrame {
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 250, 50));
 
-        SMK.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        SMK.setForeground(new java.awt.Color(255, 255, 255));
-        SMK.setText("SMK MUHAMMADIYAH 6 DONOMULYO");
-        getContentPane().add(SMK, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 360, 20));
+        txtalamatsekolah.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtalamatsekolah.setForeground(new java.awt.Color(255, 255, 255));
+        txtalamatsekolah.setText("txtalamat");
+        getContentPane().add(txtalamatsekolah, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 360, 20));
 
         SistemP.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         SistemP.setForeground(new java.awt.Color(255, 255, 255));
         SistemP.setText("SISTEM PEMBAYARAN");
-        getContentPane().add(SistemP, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 570, 100));
+        getContentPane().add(SistemP, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 570, 90));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -319,7 +490,7 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Transaksi Hari Ini");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 170, 320, 30));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 120, 320, 30));
 
         jumlahtransaksi.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jumlahtransaksi.addActionListener(new java.awt.event.ActionListener() {
@@ -328,6 +499,11 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jumlahtransaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 640, 280, 30));
+
+        txtnamasekolah.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtnamasekolah.setForeground(new java.awt.Color(255, 255, 255));
+        txtnamasekolah.setText("txtnamasekolah");
+        getContentPane().add(txtnamasekolah, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 360, 20));
 
         bg.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         bg.setForeground(new java.awt.Color(255, 255, 255));
@@ -343,7 +519,6 @@ public class Dashboard extends javax.swing.JFrame {
         mnAkun.setText("Akun");
         mnAkun.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
-        InfoAkun.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         InfoAkun.setText("Info Akun");
         InfoAkun.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -352,7 +527,6 @@ public class Dashboard extends javax.swing.JFrame {
         });
         mnAkun.add(InfoAkun);
 
-        smLogout.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         smLogout.setText("Log Out");
         smLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -365,8 +539,12 @@ public class Dashboard extends javax.swing.JFrame {
 
         mnDataMaster.setText("Data Master");
         mnDataMaster.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        mnDataMaster.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnDataMasterActionPerformed(evt);
+            }
+        });
 
-        tambahAdmin.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         tambahAdmin.setText("Tambah Petugas");
         tambahAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -375,7 +553,6 @@ public class Dashboard extends javax.swing.JFrame {
         });
         mnDataMaster.add(tambahAdmin);
 
-        tambahkelas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         tambahkelas.setText("Kelas");
         tambahkelas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -384,7 +561,6 @@ public class Dashboard extends javax.swing.JFrame {
         });
         mnDataMaster.add(tambahkelas);
 
-        tambahjenispem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         tambahjenispem.setText("Jenis Pembayaran");
         tambahjenispem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -393,16 +569,34 @@ public class Dashboard extends javax.swing.JFrame {
         });
         mnDataMaster.add(tambahjenispem);
 
-        siswa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        siswa.setText("Siswa");
-        siswa.addActionListener(new java.awt.event.ActionListener() {
+        jMenu3.setText("Siswa");
+
+        jMenuItem9.setText("Tambah Siswa");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                siswaActionPerformed(evt);
+                jMenuItem9ActionPerformed(evt);
             }
         });
-        mnDataMaster.add(siswa);
+        jMenu3.add(jMenuItem9);
 
-        setTagihan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jMenuItem10.setText("Tahun Ajaran");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem10);
+
+        jMenuItem11.setText("Alokasi Siswa");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem11);
+
+        mnDataMaster.add(jMenu3);
+
         setTagihan.setText("Set Tagihan");
         setTagihan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -411,12 +605,27 @@ public class Dashboard extends javax.swing.JFrame {
         });
         mnDataMaster.add(setTagihan);
 
+        settingApp.setText("Setting App");
+        settingApp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                settingAppActionPerformed(evt);
+            }
+        });
+        mnDataMaster.add(settingApp);
+
+        ppdb.setText("PPDB");
+        ppdb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppdbActionPerformed(evt);
+            }
+        });
+        mnDataMaster.add(ppdb);
+
         jMenuBar1.add(mnDataMaster);
 
         mnTransaksi.setText("Transaksi");
         mnTransaksi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
-        Pembayaran.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         Pembayaran.setText("Pembayaran Siswa");
         Pembayaran.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -425,7 +634,14 @@ public class Dashboard extends javax.swing.JFrame {
         });
         mnTransaksi.add(Pembayaran);
 
-        DaftarTransaksi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jMenuItem8.setText("Pembayaran (New)");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        mnTransaksi.add(jMenuItem8);
+
         DaftarTransaksi.setText("Daftar Transaksi");
         DaftarTransaksi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -440,7 +656,6 @@ public class Dashboard extends javax.swing.JFrame {
         mnLaporan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         jMenu1.setText("Master");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         jMenuItem1.setText("Kelas");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -469,7 +684,6 @@ public class Dashboard extends javax.swing.JFrame {
         mnLaporan.add(jMenu1);
 
         jMenu2.setText("Transaksi");
-        jMenu2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         jMenuItem6.setText("Pembayaran");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
@@ -525,21 +739,14 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_InfoAkunActionPerformed
 
     private void PembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PembayaranActionPerformed
-        Transaksi lp = new Transaksi();
-        lp.setVisible(true);
-        switch (level) {
-            case "admin": {
-                lp.btnsettagihan.setVisible(true);
-                break;
-            }
-            case "petugas": {
-                lp.btnsettagihan.setVisible(false);
-                break;
-            }
-            default:
-                break;
-
+        Transaksi trx = new Transaksi();
+        trx.setVisible(true);
+        trx.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        if (level.equals("petugas")) {
+            trx.button_set_tagihan.setVisible(false);
         }
+        
+        dispose();
     }//GEN-LAST:event_PembayaranActionPerformed
 
     private void smLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_smLogoutActionPerformed
@@ -548,7 +755,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_smLogoutActionPerformed
 
     private void tambahAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahAdminActionPerformed
-
+        
         new CRUDadmin().setVisible(true);
         dispose();
     }//GEN-LAST:event_tambahAdminActionPerformed
@@ -559,26 +766,9 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_tambahkelasActionPerformed
 
     private void tambahjenispemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahjenispemActionPerformed
-
-        switch (level) {
-            case "petugas": {
-                JOptionPane.showMessageDialog(null, "Mohon maaf, Petugas tidak bisa memasuki forrm ini !");
-                break;
-            }
-            case "admin": {
-                CRUDjpembayaran lp = new CRUDjpembayaran();
-                lp.setVisible(true);
-                break;
-            }
-            default:
-                break;
-        }
+        new CRUDjpembayaran().setVisible(true);
+        dispose();
     }//GEN-LAST:event_tambahjenispemActionPerformed
-
-    private void siswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siswaActionPerformed
-        // TODO add your handling code here:
-        new DMsiswa().setVisible(true);
-    }//GEN-LAST:event_siswaActionPerformed
 
     private void DaftarTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DaftarTransaksiActionPerformed
         new DaftarTransaksi().setVisible(true);
@@ -594,7 +784,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_tTanggalActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-
+        
         try {
             laporankelas();
         } catch (Exception e) {
@@ -625,9 +815,9 @@ public class Dashboard extends javax.swing.JFrame {
             case "admin": {
                 lp.cbUser.setEnabled(true);
                 lp.cbUser.setSelectedItem(level);
-
+                
                 break;
-
+                
             }
             case "petugas": {
                 lp.cbUser.setEnabled(false);
@@ -645,7 +835,10 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void setTagihanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setTagihanActionPerformed
         // TODO add your handling code here:
-        new CRUDsetTagihan().setVisible(true);
+        CRUDsetTagihan cst = new CRUDsetTagihan();
+        cst.setVisible(true);
+        cst.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        dispose();
     }//GEN-LAST:event_setTagihanActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
@@ -660,6 +853,67 @@ public class Dashboard extends javax.swing.JFrame {
     private void mnAboutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnAboutMouseClicked
         new about().setVisible(true);
     }//GEN-LAST:event_mnAboutMouseClicked
+
+    private void settingAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingAppActionPerformed
+        setupApp.setVisible(true);
+        inNamasekolah.setText(namaSekolah);
+        inAlamatasekolah.setText(alamatSekolah);
+    }//GEN-LAST:event_settingAppActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            con.createStatement().executeUpdate("update tbl_setupapp set nama_sekolah='" + inNamasekolah.getText() + "',alamat_sekolah='" + inAlamatasekolah.getText() + "'");
+            JOptionPane.showMessageDialog(null, "Ubah Nama Sekolah Berhasil");
+            txtnamasekolah.setText(inNamasekolah.getText());
+            txtalamatsekolah.setText(inAlamatasekolah.getText());
+            sekolahSession.setNamaSekolah(inNamasekolah.getText());
+            sekolahSession.setAlamatSekolah(inAlamatasekolah.getText());
+            setupApp.dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void mnDataMasterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDataMasterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnDataMasterActionPerformed
+
+    private void ppdbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppdbActionPerformed
+        dashboard_ppdb_backup dp = new dashboard_ppdb_backup();
+        dp.setVisible(true);
+        dp.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        dispose();
+    }//GEN-LAST:event_ppdbActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        Transaksi_new dp = new Transaksi_new();
+        dp.setVisible(true);
+        dp.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        dispose();
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        CRUDsiswa cs = new CRUDsiswa();
+        cs.setVisible(true);
+        cs.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        dispose();
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        CRUDta cta = new CRUDta();
+        cta.setVisible(true);
+//        cta.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//        dispose();
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+
+        CRUDalosiswa cal = new CRUDalosiswa();
+        cal.setVisible(true);
+        cal.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        dispose();
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -695,20 +949,20 @@ public class Dashboard extends javax.swing.JFrame {
                 new Dashboard().setVisible(true);
             }
         });
-
+        
     }
-
+    
     private void jumlahDataMaster() {
         try {
-
+            
             ResultSet Rowsiswa = con.createStatement().executeQuery("SELECT * FROM tbl_siswa ");
             ResultSet Rowadmin = con.createStatement().executeQuery("SELECT * FROM tbl_user");
             ResultSet Rowkelas = con.createStatement().executeQuery("SELECT * FROM tbl_kelas");
-
+            
             Rowsiswa.next();
             Rowadmin.next();
             Rowkelas.next();
-
+            
             if (Rowsiswa.last()) {
                 int total = Rowsiswa.getRow();
                 Rowsiswa.beforeFirst();
@@ -733,31 +987,48 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JMenuItem DaftarTransaksi;
     private javax.swing.JMenuItem InfoAkun;
     private javax.swing.JMenuItem Pembayaran;
-    private javax.swing.JLabel SMK;
     private javax.swing.JLabel SistemP;
     private javax.swing.JLabel TA1;
     private javax.swing.JLabel TA2;
     private javax.swing.JLabel TA3;
     private javax.swing.JLabel bg;
+    private javax.swing.JTextField inAlamatasekolah;
+    private javax.swing.JTextField inNamasekolah;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel jml_admin;
     private javax.swing.JLabel jml_kelas;
@@ -768,8 +1039,10 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JMenu mnDataMaster;
     private javax.swing.JMenu mnLaporan;
     private javax.swing.JMenu mnTransaksi;
+    private javax.swing.JMenuItem ppdb;
     private javax.swing.JMenuItem setTagihan;
-    private javax.swing.JMenuItem siswa;
+    private javax.swing.JMenuItem settingApp;
+    private javax.swing.JFrame setupApp;
     private javax.swing.JMenuItem smLogout;
     private javax.swing.JTextField tTanggal;
     private javax.swing.JLabel t_Level;
@@ -778,22 +1051,24 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JMenuItem tambahAdmin;
     private javax.swing.JMenuItem tambahjenispem;
     private javax.swing.JMenuItem tambahkelas;
+    private javax.swing.JLabel txtalamatsekolah;
+    private javax.swing.JLabel txtnamasekolah;
     // End of variables declaration//GEN-END:variables
 
     private void tampiltransaksi() {
         tanggal();
-        String[] judul = {"No Kwitansi", "Tanggal", "ID Siswa", "Nama Siswa", "Kelas", "Jumlah Bayar", "Petugas"};
+        String[] judul = {"No Kwitansi", "Tanggal", "ID Siswa", "Nama Siswa", "Pembayaran", "Jumlah Bayar", "Petugas"};
         model = new DefaultTableModel(judul, 0);
         tabeltransaksi.setModel(model);
         String tanggal = tTanggal.getText();
-
+        
         String sql = "SELECT tbl_siswa.Nama_siswa,tbl_transaksi.*,tbl_kelas.Nama_kelas,tbl_dettransaksi.jumlah,tbl_pembayaran.Nama_pembayaran"
                 + " from tbl_transaksi INNER JOIN tbl_siswa Using(Kode_siswa)"
                 + "  INNER JOIN tbl_kelas Using(Kode_kelas)"
                 + " inner join tbl_dettransaksi Using(no_faktur)"
                 + " Inner join tbl_pembayaran on tbl_dettransaksi.kode_biaya=tbl_pembayaran.Kode_bayar"
                 + " where tanggal='" + tanggal + "'";
-
+        
         try {
             rs = con.createStatement().executeQuery(sql);
             while (rs.next()) {
@@ -804,34 +1079,34 @@ public class Dashboard extends javax.swing.JFrame {
                 String kelas = rs.getString("Nama_pembayaran");
                 String jml = rs.getString("jumlah");
                 String user = rs.getString("user");
-
+                
                 String[] data = {id, tgl, kodesiswa, nama, kelas, jml, user};
                 model.addRow(data);
-
+                
             }
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-
+    
     public void tanggal() {
-
+        
         Calendar kal = new GregorianCalendar();
         int tahun = kal.get(Calendar.YEAR);
         int bulan = kal.get(Calendar.MONTH) + 1;
         int hari = kal.get(Calendar.DAY_OF_MONTH);
-
+        
         if (bulan < 10) {
             String tanggal = tahun + "/0" + bulan + "/" + hari;
             tTanggal.setText(tanggal);
         } else {
             String tanggal = tahun + "/" + bulan + "/" + hari;
-
+            
             tTanggal.setText(tanggal);
         }
-
+        
     }
-
+    
     public void totaltransaksi() {
         int total = 0;
         for (int i = 0; i < tabeltransaksi.getRowCount(); i++) {
@@ -840,4 +1115,5 @@ public class Dashboard extends javax.swing.JFrame {
         }
         jumlahtransaksi.setText("" + String.valueOf(kursIndonesia.format(total)));
     }
+    
 }

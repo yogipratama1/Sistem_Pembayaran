@@ -34,6 +34,7 @@ public class CRUDsiswa extends javax.swing.JFrame {
         btnupdate.setEnabled(false);
 
     }
+    
     Statement st;
     Connection con = KoneksiDB.getConnection();
     ResultSet rs;
@@ -118,7 +119,6 @@ public class CRUDsiswa extends javax.swing.JFrame {
         });
         getContentPane().add(tCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 180, 470, 40));
 
-        tblsiswa.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         tblsiswa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -159,21 +159,18 @@ public class CRUDsiswa extends javax.swing.JFrame {
             }
         });
 
-        tnamasiswa.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         tnamasiswa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tnamasiswaActionPerformed(evt);
             }
         });
 
-        tnisSiswa.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         tnisSiswa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tnisSiswaActionPerformed(evt);
             }
         });
 
-        talamat.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         talamat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 talamatActionPerformed(evt);
@@ -183,7 +180,6 @@ public class CRUDsiswa extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("STATUS");
 
-        tstatus.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         tstatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "aktif", "tidak aktif" }));
 
         btnsimpan.setBackground(new java.awt.Color(51, 51, 255));
@@ -219,7 +215,6 @@ public class CRUDsiswa extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("NO TELP");
 
-        notelp.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         notelp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 notelpActionPerformed(evt);
@@ -321,11 +316,71 @@ public class CRUDsiswa extends javax.swing.JFrame {
     }//GEN-LAST:event_tIDsiswaActionPerformed
 
     private void tnamasiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tnamasiswaActionPerformed
-        // TODO add your handling code here:
+      ID_AUTO();
+        String idsiswa = tIDsiswa.getText();
+        String nis = tnisSiswa.getText();
+        String nama = tnamasiswa.getText();
+        String alamat = talamat.getText();
+        String notelpon = notelp.getText();
+
+        String status = tstatus.getSelectedItem().toString();
+        try {
+            String sql = "Select * from tbl_siswa where Kode_siswa='" + idsiswa + "'";
+            rs = con.createStatement().executeQuery(sql);
+
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(null, "Gagal!! ID siswa sudah ada.");
+
+            } else {
+                if (nama.length() == 0) {
+                    JOptionPane.showMessageDialog(null, "Masukan Nama Terlebih dahulu!!");
+
+                } else {
+                    con.createStatement().executeUpdate("INSERT INTO tbl_siswa VALUE('" + idsiswa + "','" + nama + "','" + alamat + "','" + notelpon + "','" + nis + "','" + status + "')");
+                    JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan");
+                    Resetform();
+                
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("" + e);
+            JOptionPane.showMessageDialog(null, "Gagal !! Isi Form Dengan Benar ");
+        }
+
     }//GEN-LAST:event_tnamasiswaActionPerformed
 
     private void tnisSiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tnisSiswaActionPerformed
-        // TODO add your handling code here:
+        ID_AUTO();
+        String idsiswa = tIDsiswa.getText();
+        String nis = tnisSiswa.getText();
+        String nama = tnamasiswa.getText();
+        String alamat = talamat.getText();
+        String notelpon = notelp.getText();
+
+        String status = tstatus.getSelectedItem().toString();
+        try {
+            String sql = "Select * from tbl_siswa where Kode_siswa='" + idsiswa + "'";
+            rs = con.createStatement().executeQuery(sql);
+
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(null, "Gagal!! ID siswa sudah ada.");
+
+            } else {
+                if (nama.length() == 0) {
+                    JOptionPane.showMessageDialog(null, "Masukan Nama Terlebih dahulu!!");
+
+                } else {
+                    con.createStatement().executeUpdate("INSERT INTO tbl_siswa VALUE('" + idsiswa + "','" + nama + "','" + alamat + "','" + notelpon + "','" + nis + "','" + status + "')");
+                    JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan");
+                    Resetform();
+                
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("" + e);
+            JOptionPane.showMessageDialog(null, "Gagal !! Isi Form Dengan Benar ");
+        }
+
     }//GEN-LAST:event_tnisSiswaActionPerformed
 
     private void talamatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_talamatActionPerformed
@@ -369,7 +424,7 @@ public class CRUDsiswa extends javax.swing.JFrame {
                         Dashboard dsb = new Dashboard();
                         dsb.dashAdmin();
                         dsb.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                        dsb.setVisible(false);
+                        dsb.setVisible(true);
                         dispose();
                         break;
                     }
@@ -378,7 +433,7 @@ public class CRUDsiswa extends javax.swing.JFrame {
                         Dashboard dsb = new Dashboard();
                         dsb.dashPetugas();
                         dsb.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                        dsb.setVisible(false);
+                        dsb.setVisible(true);
                         dispose();
                         break;
                     }
@@ -444,8 +499,7 @@ public class CRUDsiswa extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Masukan Nama Terlebih dahulu!!");
 
                 } else {
-                    con.createStatement().executeUpdate("INSERT INTO tbl_siswa(Kode_siswa,Nama_siswa,Alamat,No_telepon,nomor_induk,Status)"
-                            + " VALUES('"+ idsiswa + "','" + nama + "','" + alamat + "','" + notelpon + "','" + nis + "','" + status + "')");
+                    con.createStatement().executeUpdate("INSERT INTO tbl_siswa VALUE('" + idsiswa + "','" + nama + "','" + alamat + "','" + notelpon + "','" + nis + "','" + status + "')");
                     JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan");
                     Resetform();
                 
@@ -529,8 +583,7 @@ public class CRUDsiswa extends javax.swing.JFrame {
         String[] judul = {"ID Siswa", "NIS", "NAMA SISWA", "ALAMAT", "NO TELP", "STATUS"};
         model = new DefaultTableModel(judul, 0);
         tblsiswa.setModel(model);
-        String sql = "SELECT * FROM tbl_siswa where Nama_siswa like '%" + tCari.getText() + "%'OR Kode_siswa like '%" + tCari.getText() + "%'"
-                + " ORDER BY Kode_siswa DESC";
+        String sql = "SELECT * FROM tbl_siswa where Nama_siswa like '%" + tCari.getText() + "%'OR Kode_siswa like '%" + tCari.getText() + "%'";
 
         try {
             rs = con.createStatement().executeQuery(sql);

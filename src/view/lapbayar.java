@@ -6,6 +6,7 @@
 package view;
 
 import config.KoneksiDB;
+import config.sekolahSession;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -82,6 +83,11 @@ public class lapbayar extends javax.swing.JFrame {
         JRDesignQuery query = new JRDesignQuery();
         HashMap param = new HashMap();
         param.put("periode", periode);
+        
+        String namaSekolah = sekolahSession.getNamaSekolah();
+        String alamatsekolah = sekolahSession.getAlamatSekolah();
+        param.put("namaSekolah", namaSekolah);
+        param.put("alamatSekolah", alamatsekolah);
         
 
         if (nis.isSelected()) {

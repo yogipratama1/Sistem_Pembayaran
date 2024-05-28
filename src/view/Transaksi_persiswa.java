@@ -6,9 +6,12 @@
 package view;
 
 import config.KoneksiDB;
+import config.UserSession;
+import config.sekolahSession;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -31,6 +34,9 @@ public class Transaksi_persiswa extends javax.swing.JFrame {
     /**
      * Creates new form Transaksi_persiswa
      */
+    String level = UserSession.get_level();
+    String user = UserSession.get_nama();
+
     public Transaksi_persiswa() {
         initComponents();
         tampiltransaksi();
@@ -308,11 +314,7 @@ public class Transaksi_persiswa extends javax.swing.JFrame {
     }//GEN-LAST:event_nokwitansiKeyReleased
 
     private void btncetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncetakActionPerformed
-        try {
-            cetaknota();
-        } catch (Exception ex) {
-            Logger.getLogger(DaftarTransaksi.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        tampiltotal();
     }//GEN-LAST:event_btncetakActionPerformed
 
     private void namasiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namasiswaActionPerformed
@@ -324,7 +326,25 @@ public class Transaksi_persiswa extends javax.swing.JFrame {
     }//GEN-LAST:event_kelasActionPerformed
 
     private void btnrefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrefreshActionPerformed
-        hapustransaksi();
+        String sql = "SELECT * FROM tbl_transaksi WHERE no_faktur='" + nokwitansi.getText() + "'";
+        try {
+            rs = con.createStatement().executeQuery(sql);
+            while (rs.next()) {
+                String petugas = rs.getString("user");
+                if (petugas.equals(user)) {
+                    hapustransaksi();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Tidak bisa menghapus pembayaran orang lain");
+
+                }
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            System.out.println(e);
+        }
+
+
     }//GEN-LAST:event_btnrefreshActionPerformed
 
     private void tIDsiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tIDsiswaActionPerformed
@@ -332,7 +352,7 @@ public class Transaksi_persiswa extends javax.swing.JFrame {
     }//GEN-LAST:event_tIDsiswaActionPerformed
 
     private void tIDsiswaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tIDsiswaKeyReleased
-       tampiltransaksi();
+        tampiltransaksi();
     }//GEN-LAST:event_tIDsiswaKeyReleased
 
     /**
@@ -349,16 +369,24 @@ public class Transaksi_persiswa extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Transaksi_persiswa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Transaksi_persiswa.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Transaksi_persiswa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Transaksi_persiswa.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Transaksi_persiswa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Transaksi_persiswa.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Transaksi_persiswa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Transaksi_persiswa.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -399,8 +427,7 @@ public void tampiltransaksi() {
                 + " from tbl_transaksi INNER JOIN tbl_siswa Using(Kode_siswa)"
                 + " INNER JOIN tbl_kelas Using(Kode_kelas)"
                 + " Where Kode_siswa ='" + tIDsiswa.getText() + "'";
-                
-        
+
         try {
             rs = con.createStatement().executeQuery(sql);
             while (rs.next()) {
@@ -422,10 +449,16 @@ public void tampiltransaksi() {
 
     }
 
-    public void cetaknota() throws Exception {
+    public void cetaknota(int total) throws Exception {
 
         JasperDesign jd = JRXmlLoader.load(getClass().getResourceAsStream("/laporan/notabayar.jrxml"));
         JRDesignQuery query = new JRDesignQuery();
+        HashMap param = new HashMap();
+        param.put("total", total);
+        String namaSekolah = sekolahSession.getNamaSekolah();
+        String alamatsekolah = sekolahSession.getAlamatSekolah();
+        param.put("namaSekolah", namaSekolah);
+        param.put("alamatSekolah", alamatsekolah);
 
         query.setText("select tbl_siswa.Nama_siswa,tbl_dettransaksi.*,tbl_transaksi.*,"
                 + "tbl_pembayaran.Nama_pembayaran,tbl_kelas.Nama_kelas from tbl_transaksi "
@@ -437,9 +470,22 @@ public void tampiltransaksi() {
         jd.setQuery(query);
 
         JasperReport jr = JasperCompileManager.compileReport(jd);
-        JasperPrint jp = JasperFillManager.fillReport(jr, null, con);
+        JasperPrint jp = JasperFillManager.fillReport(jr, param, con);
         JasperViewer.viewReport(jp, false);
 
+    }
+
+    public void tampiltotal() {
+        String sql = "select sum(jumlah) as jumlah from tbl_dettransaksi where no_faktur='" + nokwitansi.getText() + "'";
+        try {
+            rs = con.createStatement().executeQuery(sql);
+            while (rs.next()) {
+                int jumlah = Integer.parseInt(rs.getString("jumlah"));
+                cetaknota(jumlah);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     public void resetform() {
@@ -448,7 +494,6 @@ public void tampiltransaksi() {
         kelas.setText("");
         tIDsiswa.setText("");
     }
-
 
     public void hapustransaksi() {
 
