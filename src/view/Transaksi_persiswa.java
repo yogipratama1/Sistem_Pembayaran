@@ -327,10 +327,13 @@ public class Transaksi_persiswa extends javax.swing.JFrame {
 
     private void btnrefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrefreshActionPerformed
         String sql = "SELECT * FROM tbl_transaksi WHERE no_faktur='" + nokwitansi.getText() + "'";
+        System.out.println(sql);
         try {
             rs = con.createStatement().executeQuery(sql);
             while (rs.next()) {
                 String petugas = rs.getString("user");
+                System.out.println(petugas);
+                System.out.println(user);
                 if (petugas.equals(user)) {
                     hapustransaksi();
                 } else {

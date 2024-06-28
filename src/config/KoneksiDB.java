@@ -32,7 +32,7 @@ public class KoneksiDB {
 
 //            con = DriverManager.getConnection("jdbc:mysql://" + content.get(0) + ":3306/stm", "root", ""+content.get(1)+"");
             System.out.println("a");
-            con = DriverManager.getConnection("jdbc:mysql://192.168.0.1:3306/stm", "root", "12345678");
+            con = DriverManager.getConnection("jdbc:mysql://192.168.1.1:3306/stm", "root", "12345678");
 //            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/stm", "root", "");
 
             //pass Bissmillah12

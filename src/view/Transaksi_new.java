@@ -76,6 +76,7 @@ public class Transaksi_new extends javax.swing.JFrame {
         }
         comboPeriode();
         viewSiswa();
+        
         text_cari_siswa.requestFocus();
 
         text_level.setText(level);
@@ -1328,7 +1329,7 @@ public class Transaksi_new extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
- switch (level) {
+        switch (level) {
             case "admin": {
                 Dashboard dsb = new Dashboard();
                 dsb.dashAdmin();
@@ -1623,7 +1624,7 @@ public class Transaksi_new extends javax.swing.JFrame {
     }
 
     private void viewSiswa() {
-        String[] judul = {"Kode Siswa", "Nama Siswa", "Alamat", "No Telepon", "Kelas", "Kode Kelas","Periode"};
+        String[] judul = {"Kode Siswa", "Nama Siswa", "Alamat", "No Telepon", "Kelas", "Kode Kelas", "Periode"};
         model = new DefaultTableModel(judul, 0);
         tabel_siswa_baru.setModel(model);
         try {
@@ -1642,7 +1643,7 @@ public class Transaksi_new extends javax.swing.JFrame {
                 String noTelepon = rs.getString("No_telepon");
                 String periode = rs.getString("Periode");
 
-                String[] data = {kodesiswa, namasiswa, alamat, noTelepon, kelas, kodekelas,periode};
+                String[] data = {kodesiswa, namasiswa, alamat, noTelepon, kelas, kodekelas, periode};
                 model.addRow(data);
 
             }
@@ -1873,7 +1874,6 @@ public class Transaksi_new extends javax.swing.JFrame {
 //        JasperReport jr = JasperCompileManager.compileReport(jd);
 //        JasperPrint jp = JasperFillManager.fillReport(jr, param, KoneksiDB.getConnection());
 //        JasperViewer.viewReport(jp, false);
-
     }
 
     private void comboJenisPendaftaran() {

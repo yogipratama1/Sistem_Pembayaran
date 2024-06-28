@@ -476,10 +476,12 @@ public void cekSekolah() {
                     String id = rs.getString("Kode_user");
                     String username = rs.getString("Nama_user");
                     String level = rs.getString("level");
+                    System.out.println(username);
 
                     //set user data session
                     UserSession.set_id(id);
                     UserSession.set_username(username);
+                    UserSession.set_nama(username);
                     UserSession.set_level(level);
 
                     switch (level) {
