@@ -25,6 +25,7 @@ public class CRUDsiswa extends javax.swing.JFrame {
      * Creates new form CRUDsiswa
      */
     String level = UserSession.get_level();
+
     public CRUDsiswa() {
         initComponents();
         tabelSiswa();
@@ -34,7 +35,7 @@ public class CRUDsiswa extends javax.swing.JFrame {
         btnupdate.setEnabled(false);
 
     }
-    
+
     Statement st;
     Connection con = KoneksiDB.getConnection();
     ResultSet rs;
@@ -316,7 +317,7 @@ public class CRUDsiswa extends javax.swing.JFrame {
     }//GEN-LAST:event_tIDsiswaActionPerformed
 
     private void tnamasiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tnamasiswaActionPerformed
-      ID_AUTO();
+        ID_AUTO();
         String idsiswa = tIDsiswa.getText();
         String nis = tnisSiswa.getText();
         String nama = tnamasiswa.getText();
@@ -339,7 +340,7 @@ public class CRUDsiswa extends javax.swing.JFrame {
                     con.createStatement().executeUpdate("INSERT INTO tbl_siswa VALUE('" + idsiswa + "','" + nama + "','" + alamat + "','" + notelpon + "','" + nis + "','" + status + "')");
                     JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan");
                     Resetform();
-                
+
                 }
             }
         } catch (Exception e) {
@@ -373,7 +374,7 @@ public class CRUDsiswa extends javax.swing.JFrame {
                     con.createStatement().executeUpdate("INSERT INTO tbl_siswa VALUE('" + idsiswa + "','" + nama + "','" + alamat + "','" + notelpon + "','" + nis + "','" + status + "')");
                     JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan");
                     Resetform();
-                
+
                 }
             }
         } catch (Exception e) {
@@ -402,7 +403,7 @@ public class CRUDsiswa extends javax.swing.JFrame {
                     + "where Kode_siswa ='" + model.getValueAt(tblsiswa.getSelectedRow(), 0) + "'");
             JOptionPane.showMessageDialog(null, "Data Berhasil Diubah");
             Resetform();
-           
+
         } catch (Exception e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, e);
@@ -418,41 +419,45 @@ public class CRUDsiswa extends javax.swing.JFrame {
     }//GEN-LAST:event_tCariActionPerformed
 
     private void btnkembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnkembaliActionPerformed
-       switch (level) {
-                    case "admin":
-                    {
-                        Dashboard dsb = new Dashboard();
-                        dsb.dashAdmin();
-                        dsb.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                        dsb.setVisible(true);
-                        dispose();
-                        break;
-                    }
-                    case "petugas":
-                    {
-                        Dashboard dsb = new Dashboard();
-                        dsb.dashPetugas();
-                        dsb.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                        dsb.setVisible(true);
-                        dispose();
-                        break;
-                    }
-                    default:
-                    break;
-                }
+        switch (level) {
+            case "admin": {
+                Dashboard dsb = new Dashboard();
+                dsb.dashAdmin();
+                dsb.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                dsb.setVisible(true);
+                dispose();
+                break;
+            }
+            case "petugas": {
+                Dashboard dsb = new Dashboard();
+                dsb.dashPetugas();
+                dsb.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                dsb.setVisible(true);
+                dispose();
+                break;
+            }
+            default:
+                break;
+        }
     }//GEN-LAST:event_btnkembaliActionPerformed
 
     private void btnhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapusActionPerformed
-        try {
-            con.createStatement().executeUpdate("delete from tbl_siswa where Kode_siswa = '" + model.getValueAt(tblsiswa.getSelectedRow(), 0) + "'");
-            JOptionPane.showMessageDialog(null, "Berhasil");
+        int keputusan = JOptionPane.showConfirmDialog(null, "Apakah anda yakin?");
+        switch (keputusan) {
+            case JOptionPane.YES_OPTION:
+                try {
+                    con.createStatement().executeUpdate("delete from tbl_siswa where Kode_siswa = '" + model.getValueAt(tblsiswa.getSelectedRow(), 0) + "'");
+                    JOptionPane.showMessageDialog(null, "Berhasil");
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Gagal !!!");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Gagal !!!");
 
+                }
+                Resetform();
+                break;
         }
-        Resetform();
-      
+
+
     }//GEN-LAST:event_btnhapusActionPerformed
 
     private void tCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tCariKeyPressed
@@ -502,7 +507,7 @@ public class CRUDsiswa extends javax.swing.JFrame {
                     con.createStatement().executeUpdate("INSERT INTO tbl_siswa VALUE('" + idsiswa + "','" + nama + "','" + alamat + "','" + notelpon + "','" + nis + "','" + status + "')");
                     JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan");
                     Resetform();
-                
+
                 }
             }
         } catch (Exception e) {
@@ -583,7 +588,9 @@ public class CRUDsiswa extends javax.swing.JFrame {
         String[] judul = {"ID Siswa", "NIS", "NAMA SISWA", "ALAMAT", "NO TELP", "STATUS"};
         model = new DefaultTableModel(judul, 0);
         tblsiswa.setModel(model);
-        String sql = "SELECT * FROM tbl_siswa where Nama_siswa like '%" + tCari.getText() + "%'OR Kode_siswa like '%" + tCari.getText() + "%'";
+        String sql = "SELECT * FROM tbl_siswa where Nama_siswa like '%" + tCari.getText() + "%' "
+                + "OR Kode_siswa like '%" + tCari.getText() + "%' "
+                + "ORDER BY Kode_siswa DESC";
 
         try {
             rs = con.createStatement().executeQuery(sql);
@@ -608,7 +615,8 @@ public class CRUDsiswa extends javax.swing.JFrame {
     public void ID_AUTO() {
         try {
             String sql = "Select max(Kode_siswa) from tbl_siswa";
-            rs = con.createStatement().executeQuery(sql);
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 if (rs.first() == false) {
                     tIDsiswa.setText("1");

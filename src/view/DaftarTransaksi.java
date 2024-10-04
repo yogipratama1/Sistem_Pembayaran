@@ -453,7 +453,7 @@ public class DaftarTransaksi extends javax.swing.JFrame {
                 String kodesiswa = rs.getString("Kode_siswa");
                 String nama = rs.getString("Nama_siswa");
                 String kelas = rs.getString("Nama_kelas");
-                String jml = rs.getString("Jumlah_bayar");
+                String jml = rs.getString("Jumlah_bayar").split("\\.")[0];
                 String user = rs.getString("user");
 
                 String[] data = {id, tgl, kodesiswa, nama, kelas, jml, user};
@@ -501,7 +501,7 @@ public class DaftarTransaksi extends javax.swing.JFrame {
 
     private void comboPeriode() {
 
-        String sql = "SELECT * FROM tbl_periode ";
+        String sql = "SELECT * FROM tbl_periode ORDER BY created_at DESC";
 
         try {
             pst = con.prepareStatement(sql);
@@ -532,7 +532,7 @@ public class DaftarTransaksi extends javax.swing.JFrame {
                     rs = con.createStatement().executeQuery(sql);
                     while (rs.next()) {
                         String kodebiaya = rs.getString("kode_biaya");
-                        String jmlbayar = rs.getString("jumlah");
+                        String jmlbayar = rs.getString("jumlah").split("\\.")[0];
 
                         String[] data = {kodebiaya, jmlbayar};
                         modeljenis.addRow(data);
@@ -591,7 +591,7 @@ public class DaftarTransaksi extends javax.swing.JFrame {
         try {
             rs = con.createStatement().executeQuery(sql);
             while (rs.next()) {
-                int jumlah = Integer.parseInt(rs.getString("jumlah"));
+                int jumlah = Integer.parseInt(rs.getString("jumlah").split("\\.")[0]);
                 cetaknota(jumlah);
             }
         } catch (Exception e) {

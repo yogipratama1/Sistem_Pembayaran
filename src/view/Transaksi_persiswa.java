@@ -533,8 +533,8 @@ public void tampiltransaksi() {
                         try {
                             rs = con.createStatement().executeQuery(slq);
                             while (rs.next()) {
-                                int hutang = Integer.parseInt(rs.getString("Hutang"));
-                                int lunas = Integer.parseInt(rs.getString("Lunas"));
+                                int hutang = Integer.parseInt(rs.getString("Hutang").split("\\.")[0]);
+                                int lunas = Integer.parseInt(rs.getString("Lunas").split("\\.")[0]);
 
                                 int updatehtg = hutang + jumlahbayar;
                                 int updatelns = lunas - jumlahbayar;

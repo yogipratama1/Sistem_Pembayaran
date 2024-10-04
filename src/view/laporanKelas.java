@@ -55,7 +55,7 @@ public class laporanKelas extends javax.swing.JFrame {
     }
      public void comboperiode() {
        
-        String sql = "SELECT * FROM tbl_periode ";
+        String sql = "SELECT * FROM tbl_periode ORDER BY created_at DESC";
 
         try {
             pst = con.prepareStatement(sql);

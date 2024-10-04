@@ -1122,7 +1122,8 @@ viewSiswa();        // TODO add your handling code here:
     public void ID_AUTO() {
         try {
             String sql = "Select max(right(no_faktur,5)) as no_idtransaksi from tbl_transaksi";
-            rs = con.createStatement().executeQuery(sql);
+           Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 if (rs.first() == false) {
                     tIDtransaksi.setText("KWI-000001");
@@ -1163,8 +1164,9 @@ viewSiswa();        // TODO add your handling code here:
                 String tagihan = rs.getString("Nama_pembayaran");
                 String biaya = rs.getString("Hutang");
                 String kodebayar = rs.getString("kode_bayar");
+                
 
-                String[] data = {kodebayar, tagihan, biaya,};
+                String[] data = {kodebayar, tagihan, biaya.split("\\.")[0]};
                 model.addRow(data);
             }
 
@@ -1175,7 +1177,7 @@ viewSiswa();        // TODO add your handling code here:
 
     private void comboPeriode() {
 
-        String sql = "SELECT * FROM tbl_periode ";
+        String sql = "SELECT * FROM tbl_periode ORDER BY created_at DESC";
 
         try {
             pst = con.prepareStatement(sql);
@@ -1284,8 +1286,8 @@ viewSiswa();        // TODO add your handling code here:
             try {
                 rs = con.createStatement().executeQuery(sql);
                 while (rs.next()) {
-                    int hutang = Integer.parseInt(rs.getString("Hutang"));
-                    int lunas = Integer.parseInt(rs.getString("Lunas"));
+                    int hutang = Integer.parseInt(rs.getString("Hutang").split("\\.")[0]);
+                    int lunas = Integer.parseInt(rs.getString("Lunas").split("\\.")[0]);
 
                     int updatehutang = hutang - bayar;
                     int updatelunas = lunas + bayar;

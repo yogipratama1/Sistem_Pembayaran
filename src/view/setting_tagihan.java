@@ -369,8 +369,8 @@ public void tabelSiswa() {
                
                 String kelas = rs.getString("Nama_pembayaran");
                 String kodebayar = rs.getString("kode_bayar");
-                String hutang = rs.getString("Hutang");
-                String lunas = rs.getString("Lunas");
+                String hutang = rs.getString("Hutang").split("\\.")[0];
+                String lunas = rs.getString("Lunas").split("\\.")[0];
 
                 String[] data = {kelas, kodebayar, hutang, lunas};
                 model.addRow(data);

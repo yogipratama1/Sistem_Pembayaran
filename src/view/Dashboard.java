@@ -9,8 +9,10 @@ import config.KoneksiDB;
 import config.*;
 
 import java.sql.Connection;
-import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Calendar;
@@ -32,7 +34,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author YOGI
  */
 public class Dashboard extends javax.swing.JFrame {
-    
+
     Connection con = KoneksiDB.getConnection();
     ResultSet rs;
     DefaultTableModel model;
@@ -45,64 +47,65 @@ public class Dashboard extends javax.swing.JFrame {
     String tahunajaran = UserSession.getTahunajaran();
     String namaSekolah = sekolahSession.getNamaSekolah();
     String alamatSekolah = sekolahSession.getAlamatSekolah();
-    
+
     DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
     DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
-    
+
     public Dashboard() {
         initComponents();
         txtnamasekolah.setText(namaSekolah);
         txtalamatsekolah.setText(alamatSekolah);
         tampiltransaksi();
         tanggal();
-        
+        jumlahDataMaster();
+
         formatRp.setCurrencySymbol("Rp. ");
         formatRp.setMonetaryDecimalSeparator(',');
         formatRp.setGroupingSeparator('.');
         kursIndonesia.setDecimalFormatSymbols(formatRp);
         totaltransaksi();
-        
+
     }
-    
+
     public void dashSuper() {
-        jumlahDataMaster();
+//        jumlahDataMaster();
         t_Level.setText("SUPER ADMIN");
         t_user.setText(username);
         txtnamasekolah.setText(namaSekolah);
         txtalamatsekolah.setText(alamatSekolah);
     }
-    
+
     public void dashAdmin() {
-        jumlahDataMaster();
+//        jumlahDataMaster();
         t_Level.setText("ADMINISTRATOR");
         t_user.setText(username);
-        
+
         settingApp.setVisible(false);
         txtnamasekolah.setText(namaSekolah);
         txtalamatsekolah.setText(alamatSekolah);
-        
+
     }
-    
+
     public void dashPetugas() {
-        jumlahDataMaster();
+//        jumlahDataMaster();
         t_Level.setText("PETUGAS");
         t_user.setText(username);
-        
+
         ppdb.setVisible(false);
         tambahjenispem.setVisible(false);
         settingApp.setVisible(false);
         tambahAdmin.setVisible(false);
         setTagihan.setVisible(false);
     }
-    
+
     public void laporankelas() throws Exception {
-        
+
         JasperDesign jd = JRXmlLoader.load(getClass().getResourceAsStream("/laporan/kelas.jrxml"));
         JRDesignQuery query = new JRDesignQuery();
         HashMap param = new HashMap();
         String namaSekolah = sekolahSession.getNamaSekolah();
         String alamatsekolah = sekolahSession.getAlamatSekolah();
-        
+
         param.put("namaSekolah", namaSekolah);
         param.put("alamatSekolah", alamatsekolah);
         query.setText("select * from tbl_kelas");
@@ -111,14 +114,14 @@ public class Dashboard extends javax.swing.JFrame {
         JasperPrint jp = JasperFillManager.fillReport(jr, param, con);
         JasperViewer.viewReport(jp, false);
     }
-    
+
     public void laporanJenisPembayaran() throws Exception {
         JasperDesign jd = JRXmlLoader.load(getClass().getResourceAsStream("/laporan/jenisPembayaran.jrxml"));
         JRDesignQuery query = new JRDesignQuery();
         HashMap param = new HashMap();
         String namaSekolah = sekolahSession.getNamaSekolah();
         String alamatsekolah = sekolahSession.getAlamatSekolah();
-        
+
         param.put("namaSekolah", namaSekolah);
         param.put("alamatSekolah", alamatsekolah);
         query.setText("select * from tbl_pembayaran");
@@ -745,7 +748,7 @@ public class Dashboard extends javax.swing.JFrame {
         if (level.equals("petugas")) {
             trx.button_set_tagihan.setVisible(false);
         }
-        
+
         dispose();
     }//GEN-LAST:event_PembayaranActionPerformed
 
@@ -755,7 +758,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_smLogoutActionPerformed
 
     private void tambahAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahAdminActionPerformed
-        
+
         new CRUDadmin().setVisible(true);
         dispose();
     }//GEN-LAST:event_tambahAdminActionPerformed
@@ -784,7 +787,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_tTanggalActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        
+
         try {
             laporankelas();
         } catch (Exception e) {
@@ -815,9 +818,9 @@ public class Dashboard extends javax.swing.JFrame {
             case "admin": {
                 lp.cbUser.setEnabled(true);
                 lp.cbUser.setSelectedItem(level);
-                
+
                 break;
-                
+
             }
             case "petugas": {
                 lp.cbUser.setEnabled(false);
@@ -882,7 +885,7 @@ public class Dashboard extends javax.swing.JFrame {
         dashboard_ppdb_backup dp = new dashboard_ppdb_backup();
         dp.setVisible(true);
         dp.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
+
         dispose();
     }//GEN-LAST:event_ppdbActionPerformed
 
@@ -949,37 +952,38 @@ public class Dashboard extends javax.swing.JFrame {
                 new Dashboard().setVisible(true);
             }
         });
-        
+
     }
-    
+
     private void jumlahDataMaster() {
         try {
-            
-            ResultSet Rowsiswa = con.createStatement().executeQuery("SELECT * FROM tbl_siswa ");
-            ResultSet Rowadmin = con.createStatement().executeQuery("SELECT * FROM tbl_user");
-            ResultSet Rowkelas = con.createStatement().executeQuery("SELECT * FROM tbl_kelas");
-            
-            Rowsiswa.next();
-            Rowadmin.next();
-            Rowkelas.next();
-            
-            if (Rowsiswa.last()) {
-                int total = Rowsiswa.getRow();
-                Rowsiswa.beforeFirst();
-                jml_siswa.setText(Integer.toString(total));
-            }
-            if (Rowadmin.last()) {
-                int total = Rowadmin.getRow();
-                Rowadmin.beforeFirst();
-                jml_admin.setText(Integer.toString(total));
-            }
-            if (Rowkelas.last()) {
-                int total = Rowkelas.getRow();
-                Rowkelas.beforeFirst();
-                jml_kelas.setText(Integer.toString(total));
-            }
+            Statement stmtSiswa = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet Rowsiswa = stmtSiswa.executeQuery("SELECT * FROM tbl_siswa ");
+
+            Statement stmtAdmin = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet Rowadmin = stmtAdmin.executeQuery("SELECT * FROM tbl_user");
+
+            Statement stmtKelas = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet Rowkelas = stmtKelas.executeQuery("SELECT * FROM tbl_kelas");
+
+            Rowsiswa.last();
+            int totalSiswa = Rowsiswa.getRow();
+            Rowsiswa.beforeFirst();
+            jml_siswa.setText(Integer.toString(totalSiswa));
+
+            Rowadmin.last();
+            int totalAdmin = Rowadmin.getRow();
+            Rowadmin.beforeFirst();
+            jml_admin.setText(Integer.toString(totalAdmin));
+
+            Rowkelas.last();
+            int totalKelas = Rowkelas.getRow();
+            Rowkelas.beforeFirst();
+            jml_kelas.setText(Integer.toString(totalKelas));
         } catch (Exception e) {
-            System.out.println(e);
+            // Log the exception or provide a more informative error message
+            System.err.println("Error: " + e.getMessage());
+
         }
     }
 
@@ -1061,14 +1065,14 @@ public class Dashboard extends javax.swing.JFrame {
         model = new DefaultTableModel(judul, 0);
         tabeltransaksi.setModel(model);
         String tanggal = tTanggal.getText();
-        
+
         String sql = "SELECT tbl_siswa.Nama_siswa,tbl_transaksi.*,tbl_kelas.Nama_kelas,tbl_dettransaksi.jumlah,tbl_pembayaran.Nama_pembayaran"
                 + " from tbl_transaksi INNER JOIN tbl_siswa Using(Kode_siswa)"
                 + "  INNER JOIN tbl_kelas Using(Kode_kelas)"
                 + " inner join tbl_dettransaksi Using(no_faktur)"
                 + " Inner join tbl_pembayaran on tbl_dettransaksi.kode_biaya=tbl_pembayaran.Kode_bayar"
                 + " where tanggal='" + tanggal + "'";
-        
+
         try {
             rs = con.createStatement().executeQuery(sql);
             while (rs.next()) {
@@ -1077,36 +1081,36 @@ public class Dashboard extends javax.swing.JFrame {
                 String kodesiswa = rs.getString("Kode_siswa");
                 String nama = rs.getString("Nama_siswa");
                 String kelas = rs.getString("Nama_pembayaran");
-                String jml = rs.getString("jumlah");
+                String jml = rs.getString("jumlah").split("\\.")[0];
                 String user = rs.getString("user");
-                
+
                 String[] data = {id, tgl, kodesiswa, nama, kelas, jml, user};
                 model.addRow(data);
-                
+
             }
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-    
+
     public void tanggal() {
-        
+
         Calendar kal = new GregorianCalendar();
         int tahun = kal.get(Calendar.YEAR);
         int bulan = kal.get(Calendar.MONTH) + 1;
         int hari = kal.get(Calendar.DAY_OF_MONTH);
-        
+
         if (bulan < 10) {
             String tanggal = tahun + "/0" + bulan + "/" + hari;
             tTanggal.setText(tanggal);
         } else {
             String tanggal = tahun + "/" + bulan + "/" + hari;
-            
+
             tTanggal.setText(tanggal);
         }
-        
+
     }
-    
+
     public void totaltransaksi() {
         int total = 0;
         for (int i = 0; i < tabeltransaksi.getRowCount(); i++) {
@@ -1115,5 +1119,5 @@ public class Dashboard extends javax.swing.JFrame {
         }
         jumlahtransaksi.setText("" + String.valueOf(kursIndonesia.format(total)));
     }
-    
+
 }

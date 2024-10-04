@@ -305,7 +305,7 @@ public class laptagihan extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
  private void comboPeriode() {
 
-        String sql = "SELECT * FROM tbl_periode ";
+        String sql = "SELECT * FROM tbl_periode ORDER BY created_at DESC";
 
         try {
             pst = con.prepareStatement(sql);

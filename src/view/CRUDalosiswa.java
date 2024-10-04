@@ -32,7 +32,7 @@ public class CRUDalosiswa extends javax.swing.JFrame {
     String id = UserSession.get_id();
     String username = UserSession.get_username();
     String level = UserSession.get_level();
-
+    
     public CRUDalosiswa() {
         initComponents();
         tabelSiswa();
@@ -43,9 +43,9 @@ public class CRUDalosiswa extends javax.swing.JFrame {
         tnamasiswa.setEnabled(false);
         btnupdate.setEnabled(false);
         btnhapus.setEnabled(false);
-
+        
         tnamasiswa.setText("");
-
+        
     }
     Statement st;
     Connection con = KoneksiDB.getConnection();
@@ -82,6 +82,10 @@ public class CRUDalosiswa extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         alokasiSiswa = new javax.swing.JFrame();
         kodekelas1 = new javax.swing.JLabel();
+        form_progres_save = new javax.swing.JFrame();
+        jPanel5 = new javax.swing.JPanel();
+        progress_save = new javax.swing.JProgressBar();
+        jLabel12 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         tCari = new javax.swing.JTextField();
@@ -107,7 +111,7 @@ public class CRUDalosiswa extends javax.swing.JFrame {
 
         siswa.setBackground(new java.awt.Color(255, 255, 255));
         siswa.setLocation(new java.awt.Point(100, 0));
-        siswa.setMinimumSize(new java.awt.Dimension(1554, 481));
+        siswa.setMinimumSize(new java.awt.Dimension(1008, 481));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -228,9 +232,17 @@ public class CRUDalosiswa extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36)
                         .addComponent(tCarisiswa))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 639, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel7))
+                        .addGap(52, 52, 52)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(tperiode1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tkelas1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -238,19 +250,9 @@ public class CRUDalosiswa extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButton5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel7))
-                        .addGap(52, 52, 52)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(tperiode1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tkelas1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(186, 202, Short.MAX_VALUE)))
-                .addGap(33, 33, 33))
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,9 +267,9 @@ public class CRUDalosiswa extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tperiode1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnHapusinput, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -286,9 +288,7 @@ public class CRUDalosiswa extends javax.swing.JFrame {
         siswa.getContentPane().setLayout(siswaLayout);
         siswaLayout.setHorizontalGroup(
             siswaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(siswaLayout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 348, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         siswaLayout.setVerticalGroup(
             siswaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,6 +317,50 @@ public class CRUDalosiswa extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addComponent(kodekelas1)
                 .addContainerGap(422, Short.MAX_VALUE))
+        );
+
+        form_progres_save.setMinimumSize(new java.awt.Dimension(325, 100));
+        form_progres_save.setUndecorated(true);
+
+        jPanel5.setBackground(new java.awt.Color(241, 250, 255));
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel12.setText("Progres Save Data");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(progress_save, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(91, 91, 91)
+                .addComponent(jLabel12)
+                .addContainerGap(107, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addComponent(jLabel12)
+                .addGap(18, 18, 18)
+                .addComponent(progress_save, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout form_progres_saveLayout = new javax.swing.GroupLayout(form_progres_save.getContentPane());
+        form_progres_save.getContentPane().setLayout(form_progres_saveLayout);
+        form_progres_saveLayout.setHorizontalGroup(
+            form_progres_saveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        form_progres_saveLayout.setVerticalGroup(
+            form_progres_saveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(form_progres_saveLayout.createSequentialGroup()
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -546,22 +590,22 @@ public class CRUDalosiswa extends javax.swing.JFrame {
     }//GEN-LAST:event_tnamasiswaActionPerformed
 
     private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
-
-        int keputusan = JOptionPane.showConfirmDialog(null, "Apakah anda yakin menghapus Set Up Kelas "+tnamasiswa.getText()+" ?");
+        
+        int keputusan = JOptionPane.showConfirmDialog(null, "Apakah anda yakin menghapus Set Up Kelas " + tnamasiswa.getText() + " ?");
         switch (keputusan) {
             case JOptionPane.YES_OPTION:
                 int i = tblsiswa.getSelectedRow();
-
+                
                 try {
-
+                    
                     String kelas = kodekelas.getText();
                     String periodetbl = model.getValueAt(i, 3).toString();
                     String periodecombo = tperiode.getSelectedItem().toString();
                     String id = tIDsiswa.getText();
-
+                    
                     con.createStatement().executeUpdate("UPDATE tbl_setupkelas set Periode='" + periodecombo + "', Kode_kelas='" + kelas + "'"
                             + " WHERE Kode_siswa ='" + id + "' and Periode='" + periodetbl + "'");
-
+                    
                     con.createStatement().executeUpdate("update tbl_dettran set Kode_kelas='" + kelas + "',Periode='" + periodecombo + "' "
                             + "Where Kode_siswa='" + id + "' and Periode='" + periodetbl + "'");
                     JOptionPane.showMessageDialog(null, "Data Berhasil Diubah");
@@ -582,7 +626,7 @@ public class CRUDalosiswa extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         siswa.setVisible(false);
         alosiswa.setVisible(false);
-
+        
         switch (level) {
             case "admin": {
                 Dashboard dsb = new Dashboard();
@@ -610,7 +654,7 @@ public class CRUDalosiswa extends javax.swing.JFrame {
     }//GEN-LAST:event_tCariKeyReleased
 
     private void tblsiswaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblsiswaMouseClicked
-
+        
         int i = tblsiswa.getSelectedRow();
         tIDsiswa.setText(model.getValueAt(i, 0).toString());
         tnamasiswa.setText(model.getValueAt(i, 1).toString());
@@ -656,16 +700,16 @@ public class CRUDalosiswa extends javax.swing.JFrame {
             while (rs.next()) {
                 kodekelas.setText(rs.getString("Kode_kelas"));
                 tgrupkelas.setText(rs.getString("group_kelas"));
-
+                
             }
-
+            
         } catch (Exception e) {
             System.out.println(e);
         }
     }//GEN-LAST:event_tkelasActionPerformed
 
     private void btnhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapusActionPerformed
-
+        
         int keputusan = JOptionPane.showConfirmDialog(null, "Apakah anda yakin?");
         switch (keputusan) {
             case JOptionPane.YES_OPTION:
@@ -682,7 +726,7 @@ public class CRUDalosiswa extends javax.swing.JFrame {
                 }
                 break;
         }
-
+        
 
     }//GEN-LAST:event_btnhapusActionPerformed
 
@@ -694,6 +738,7 @@ public class CRUDalosiswa extends javax.swing.JFrame {
 //        new tabelalosiswa().setVisible(true);
 //        dispose();
         tampilsiswa();
+        siswa.setLocationRelativeTo(null);
         siswa.setVisible(true);
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -701,7 +746,7 @@ public class CRUDalosiswa extends javax.swing.JFrame {
     private void tblInputsiswaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblInputsiswaMouseClicked
         int i = tblInputsiswa.getSelectedRow();
         DefaultTableModel dataModel = (DefaultTableModel) tblInputsiswa.getModel();
-
+        
 
     }//GEN-LAST:event_tblInputsiswaMouseClicked
 
@@ -711,12 +756,12 @@ public class CRUDalosiswa extends javax.swing.JFrame {
         try {
             rs = con.createStatement().executeQuery(sql);
             while (rs.next()) {
-
+                
                 kodekelas1.setText(rs.getString("Kode_kelas"));
                 tgrupkelas.setText(rs.getString("group_kelas"));
-
+                
             }
-
+            
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -741,7 +786,7 @@ public class CRUDalosiswa extends javax.swing.JFrame {
         if (tblInputsiswa.getRowCount() > 0) {
             for (int i = tblInputsiswa.getRowCount() - 1; i > -1; i--) {
                 dataModel.removeRow(i);
-
+                
             }
         }
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -749,9 +794,18 @@ public class CRUDalosiswa extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         String periode = tperiode1.getSelectedItem().toString();
         if (kodekelas1.getText() != "~" & periode != "Pilih Periode") {
-            simpanAlokasi();
-            siswa.setVisible(false);
-            alokasiSiswa.setVisible(false);
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    form_progres_save.setLocationRelativeTo(null);
+                    form_progres_save.setVisible(true);
+                    simpanAlokasi();
+                    siswa.setVisible(false);
+                    alokasiSiswa.setVisible(false);
+                }
+            });
+            t.start();
+            
         } else {
             JOptionPane.showMessageDialog(null, "Pilih Kelas dan periode terlebih dahulu!!");
         }
@@ -765,7 +819,7 @@ public class CRUDalosiswa extends javax.swing.JFrame {
         if (evt.getKeyCode() == evt.VK_ENTER) {
             evt.consume();
             tablearray();
-
+            
         }
     }//GEN-LAST:event_tblListsiswaKeyPressed
 
@@ -774,7 +828,7 @@ public class CRUDalosiswa extends javax.swing.JFrame {
         if (tblInputsiswa.getRowCount() > 0) {
             for (int i = tblInputsiswa.getRowCount() - 1; i > -1; i--) {
                 dataModel.removeRow(i);
-
+                
             }
         }
         siswa.setVisible(false);        // TODO add your handling code here:
@@ -794,21 +848,21 @@ public class CRUDalosiswa extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
+                    
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(CRUDalosiswa.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(CRUDalosiswa.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(CRUDalosiswa.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(CRUDalosiswa.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -831,6 +885,7 @@ public class CRUDalosiswa extends javax.swing.JFrame {
     private javax.swing.JButton btnHapusinput;
     private javax.swing.JButton btnhapus;
     private javax.swing.JButton btnupdate;
+    private javax.swing.JFrame form_progres_save;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -838,6 +893,7 @@ public class CRUDalosiswa extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -847,11 +903,13 @@ public class CRUDalosiswa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel kodekelas;
     private javax.swing.JLabel kodekelas1;
+    private javax.swing.JProgressBar progress_save;
     private javax.swing.JFrame siswa;
     private javax.swing.JTextField tCari;
     private javax.swing.JTextField tCarisiswa;
@@ -876,26 +934,26 @@ public class CRUDalosiswa extends javax.swing.JFrame {
                 + " INNER JOIN tbl_periode USING(Periode)"
                 + " INNER JOIN tbl_kelas USING(Kode_kelas)"
                 + " where Nama_siswa like '%" + tCari.getText() + "%'OR Kode_siswa like '%" + tCari.getText() + "' ORDER BY Kode_siswa ASC";
-
+        
         try {
             rs = con.createStatement().executeQuery(sql);
-
+            
             while (rs.next()) {
                 String id = rs.getString("Kode_siswa");
                 String nama = rs.getString("Nama_siswa");
                 String kelas = rs.getString("Nama_kelas");
                 String periode = rs.getString("Periode");
-
+                
                 String[] data = {id, nama, kelas, periode};
                 model.addRow(data);
             }
         } catch (Exception e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, e);
-
+            
         }
     }
-
+    
     private void isiIDsiswa() {
         String sql = "select * from tbl_siswa where Kode_siswa='" + tIDsiswa.getText() + "'";
         try {
@@ -908,39 +966,39 @@ public class CRUDalosiswa extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Data Tidak Ada");
         }
     }
-
+    
     private void comboPeriode() {
-        String sql = "SELECT * FROM tbl_periode";
-
+        String sql = "SELECT * FROM tbl_periode ORDER BY created_at DESC";
+        
         try {
             pst = con.prepareStatement(sql);
             rs = pst.executeQuery();
             while (rs.next()) {
                 tperiode.addItem(rs.getString("Periode"));
                 tperiode1.addItem(rs.getString("Periode"));
-
+                
             }
         } catch (Exception e) {
         }
     }
-
+    
     private void combokelas() {
-
-        String sql = "SELECT * FROM tbl_kelas ";
-
+        
+        String sql = "SELECT * FROM tbl_kelas ORDER BY nama_kelas DESC";
+        
         try {
             pst = con.prepareStatement(sql);
             rs = pst.executeQuery();
             while (rs.next()) {
                 tkelas.addItem(rs.getString("Nama_kelas"));
                 tkelas1.addItem(rs.getString("Nama_kelas"));
-
+                
             }
-
+            
         } catch (Exception e) {
         }
     }
-
+    
     public void tampilsiswa() {
         String[] judul = {"Kode Siswa", "Nama Siswa"};
         model = new DefaultTableModel(judul, 0);
@@ -954,16 +1012,16 @@ public class CRUDalosiswa extends javax.swing.JFrame {
             while (rs.next()) {
                 String kodesiswa = rs.getString("Kode_siswa");
                 String namasiswa = rs.getString("Nama_siswa");
-
+                
                 String[] data = {kodesiswa, namasiswa};
                 model.addRow(data);
-
+                
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-
+    
     private void Resetform() {
         tIDsiswa.setText("");
         tnamasiswa.setText("");
@@ -971,59 +1029,62 @@ public class CRUDalosiswa extends javax.swing.JFrame {
         tperiode.setSelectedItem("Pilih Periode");
         kodekelas.setText("~");
         tgrupkelas.setText("~");
-
+        
         tabelSiswa();
-
+        
         btnupdate.setEnabled(false);
         tIDsiswa.setEnabled(true);
         btnhapus.setEnabled(false);
         tnamasiswa.setEnabled(false);
-
+        
     }
-
+    
     public void tablearray() {
 
         //mengambil data periode
         int i = tblListsiswa.getSelectedRow();
         String kodeSiswa = model.getValueAt(i, 0).toString();
         String namaSiswa = model.getValueAt(i, 1).toString();
-
+        
         DefaultTableModel dataModel = (DefaultTableModel) tblInputsiswa.getModel();
         List list = new ArrayList<>();
         tblInputsiswa.setAutoCreateColumnsFromModel(true);
         list.add(kodeSiswa);
         list.add(namaSiswa);
-
+        
         dataModel.addRow(list.toArray());
-
+        
     }
-
+    
     public void simpanAlokasi() {
-        String idsiswa = tIDsiswa.getText();
+        
         String periode = tperiode1.getSelectedItem().toString();
         String kelas = kodekelas1.getText();
         String GK = tgrupkelas.getText();
 //        System.out.println(GK);
         int jumlah_baris = tblInputsiswa.getRowCount();
+        progress_save.setMaximum(jumlah_baris);
+        progress_save.setValue(0);
         if (jumlah_baris == 0) {
             JOptionPane.showMessageDialog(null, "Siswa Masih Kosong!");
-
+            
         } else {
             try {
                 int i = 0;
                 while (i < jumlah_baris) {
+                    progress_save.setValue(i);
                     con.createStatement().executeUpdate("INSERT INTO tbl_setupkelas VALUE('" + periode + "','" + tblInputsiswa.getValueAt(i, 0) + "','" + kelas + "')");
-
+                    
                     String sql = "Select * from tbl_pembayaran where periode='" + periode + "' and group_kelas='" + GK + "'";
                     System.out.println(sql);
                     try {
-
+                        
                         rs = con.createStatement().executeQuery(sql);
                         while (rs.next()) {
                             String kodebayar = rs.getString("Kode_bayar");
                             String biaya = rs.getString("Biaya");
                             String grupkelas = rs.getString("group_kelas");
-
+                            
                             try {
                                 con.createStatement().executeUpdate("insert into tbl_dettran value('" + periode + "','" + tblInputsiswa.getValueAt(i, 0) + "',"
                                         + "'" + kelas + "','" + kodebayar + "','" + biaya + "','0','" + grupkelas + "')");
@@ -1037,15 +1098,16 @@ public class CRUDalosiswa extends javax.swing.JFrame {
                     }
                     i++;
                 }
-
+                
                 JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan");
+                form_progres_save.setVisible(false);
                 Resetform();
             } catch (Exception e) {
                 System.out.println(e);
                 JOptionPane.showMessageDialog(null, "Masukan Data Dengan Benar");
-
+                
             }
         }
     }
-
+    
 }

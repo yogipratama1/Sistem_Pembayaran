@@ -186,6 +186,8 @@ public class Transaksi_new extends javax.swing.JFrame {
         detail_date = new com.toedter.calendar.JDateChooser();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
+        text_kode_kelas = new javax.swing.JLabel();
+        text_nama_kelas = new javax.swing.JLabel();
         form_update_siswa = new javax.swing.JFrame();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -563,68 +565,79 @@ public class Transaksi_new extends javax.swing.JFrame {
 
         jLabel27.setText("* tekan enter setelah input pembayaran");
 
+        text_kode_kelas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        text_kode_kelas.setText("kode kelas");
+
+        text_nama_kelas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        text_nama_kelas.setText("nama kelas");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2)
+                    .addComponent(text_detail_total_kembalian)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(text_detail_periode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(text_detail_id_pembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlabel1))
                         .addGap(18, 18, 18)
-                        .addComponent(detail_list_tagihan, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(225, 225, 225))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(text_detail_nama_pembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlabel4)
+                            .addComponent(text_detail_tagihan_pembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(7, 7, 7)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(text_detail_id_siswa, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(378, 378, 378)
-                                .addComponent(jLabel17)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(detail_date, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2)
-                            .addComponent(text_detail_total_kembalian)
+                                .addComponent(jlabel3)
+                                .addGap(27, 27, 27)
+                                .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(text_detail_bayar_tagihan, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel6Layout.createSequentialGroup()
+                                    .addComponent(button_detail_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(text_detail_total_pembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jlabel5))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(text_detail_id_pembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jlabel1))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(text_detail_nama_pembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jlabel2))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlabel4)
-                                    .addComponent(text_detail_tagihan_pembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(7, 7, 7)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addComponent(jlabel3)
-                                        .addGap(27, 27, 27)
-                                        .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(text_detail_bayar_tagihan, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(jPanel6Layout.createSequentialGroup()
-                                            .addComponent(button_detail_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(text_detail_total_pembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jlabel5))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel6Layout.createSequentialGroup()
-                                        .addComponent(jlabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jlabel7))
-                                    .addComponent(text_detail_bayar_pembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jlabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jlabel7))
+                            .addComponent(text_detail_bayar_pembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel6Layout.createSequentialGroup()
+                                    .addComponent(text_detail_id_siswa, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(378, 378, 378)
+                                    .addComponent(jLabel17)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel6Layout.createSequentialGroup()
+                                    .addComponent(text_detail_periode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(detail_list_tagihan, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(29, 29, 29)))
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(text_detail_nama_siswa, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(35, Short.MAX_VALUE))))
+                                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(476, 476, 476)))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(text_kode_kelas, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(detail_date, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(text_nama_kelas, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -638,11 +651,13 @@ public class Transaksi_new extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel26)
-                    .addComponent(text_detail_nama_siswa))
-                .addGap(5, 5, 5)
+                    .addComponent(text_detail_nama_siswa)
+                    .addComponent(text_kode_kelas))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(detail_list_tagihan, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(text_detail_periode))
+                    .addComponent(text_detail_periode)
+                    .addComponent(text_nama_kelas))
                 .addGap(17, 17, 17)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlabel1)
@@ -1166,6 +1181,8 @@ public class Transaksi_new extends javax.swing.JFrame {
         text_detail_id_siswa.setText(model.getValueAt(i, 0).toString());
         text_detail_nama_siswa.setText(model.getValueAt(i, 1).toString());
         text_detail_periode.setText(model.getValueAt(i, 6).toString());
+        text_kode_kelas.setText(model.getValueAt(i, 5).toString());
+        text_nama_kelas.setText(model.getValueAt(i, 4).toString());
         comboTagihan(model.getValueAt(i, 0).toString(), model.getValueAt(i, 6).toString());
         text_detail_bayar_tagihan.setEnabled(false);
         detail_siswa.setVisible(true);
@@ -1467,8 +1484,10 @@ public class Transaksi_new extends javax.swing.JFrame {
     private javax.swing.JTextField text_detail_total_pembayaran;
     private javax.swing.JComboBox<String> text_jenis_pendaftaran;
     private javax.swing.JComboBox<String> text_jurusan_dipilih;
+    private javax.swing.JLabel text_kode_kelas;
     private javax.swing.JLabel text_level;
     private javax.swing.JTextField text_nama;
+    private javax.swing.JLabel text_nama_kelas;
     private javax.swing.JLabel text_nama_sekolah;
     private javax.swing.JComboBox<String> text_tahun_ajaran;
     private com.toedter.calendar.JDateChooser text_tanggal_daftar;
@@ -1491,7 +1510,8 @@ public class Transaksi_new extends javax.swing.JFrame {
  public String ID_AUTO(String idSiswa) {
         try {
             String sql = "Select max(Kode_siswa) from tbl_siswa";
-            rs = con.createStatement().executeQuery(sql);
+          Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 if (rs.first() == false) {
                     idSiswa = "1";
@@ -1527,8 +1547,8 @@ public class Transaksi_new extends javax.swing.JFrame {
                 String idPembayaran = rs.getString("kode_bayar");
                 String namaPembayaran = rs.getString("Nama_pembayaran");
                 String hutang = rs.getString("Hutang");
-                System.out.println(idPembayaran + " - " + namaPembayaran + " - " + hutang);
-                detail_list_tagihan.addItem(idPembayaran + " - " + namaPembayaran + " - " + hutang);
+//                System.out.println(idPembayaran + " - " + namaPembayaran + " - " + hutang.split("\\.")[0]);
+                detail_list_tagihan.addItem(idPembayaran + " - " + namaPembayaran + " - " + hutang.split("\\.")[0]);
 
             }
         } catch (Exception e) {
@@ -1761,8 +1781,8 @@ public class Transaksi_new extends javax.swing.JFrame {
             try {
                 rs = con.createStatement().executeQuery(sql);
                 while (rs.next()) {
-                    int hutang = Integer.parseInt(rs.getString("Hutang"));
-                    int lunas = Integer.parseInt(rs.getString("Lunas"));
+                    int hutang = Integer.parseInt(rs.getString("Hutang").split("\\.")[0]);
+                    int lunas = Integer.parseInt(rs.getString("Lunas").split("\\.")[0]);
 
                     int updatehutang = hutang - bayar;
                     int updatelunas = lunas + bayar;
@@ -1812,7 +1832,8 @@ public class Transaksi_new extends javax.swing.JFrame {
     private String TRXID_AUTO(String trx) {
         try {
             String sql = "Select max(right(no_faktur,5)) as no_idtransaksi from tbl_transaksi";
-            rs = con.createStatement().executeQuery(sql);
+          Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 if (rs.first() == false) {
                     trx = "KWI-000001";

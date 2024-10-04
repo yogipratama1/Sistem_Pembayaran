@@ -7,11 +7,12 @@ package view;
 
 import config.KoneksiDB;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JFrame;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
-import java.sql.ResultSet;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -310,7 +311,7 @@ public class CRUDadmin extends javax.swing.JFrame {
             String level = cblevel.getSelectedItem().toString();
 
             con.createStatement().executeUpdate("update tbl_user set Nama_user='" + nama + ""
-                    + "',pass='" + pass + "',Telephon='" + telpon + "',level='"+level+"'"
+                    + "',pass='" + pass + "',Telephon='" + telpon + "',level='" + level + "'"
                     + "where Kode_user ='" + model.getValueAt(tbladmin.getSelectedRow(), 0) + "'");
             JOptionPane.showMessageDialog(null, "Data Berhasil Diubah");
             Resetform();
@@ -370,7 +371,7 @@ public class CRUDadmin extends javax.swing.JFrame {
         } else {
 
             try {
-                con.createStatement().executeUpdate("INSERT INTO tbl_user VALUE('" + id + "','" + nama + "','" + pass + "','" + telpon + "','"+level+"')");
+                con.createStatement().executeUpdate("INSERT INTO tbl_user VALUE('" + id + "','" + nama + "','" + pass + "','" + telpon + "','" + level + "')");
                 JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan");
                 Resetform();
             } catch (Exception ex) {
@@ -459,7 +460,7 @@ public class CRUDadmin extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void tabelAdmin() {
-        String[] judul = {"ID", "Nama/Username", "Password", "Telephone","Level"};
+        String[] judul = {"ID", "Nama/Username", "Password", "Telephone", "Level"};
         model = new DefaultTableModel(judul, 0);
         tbladmin.setModel(model);
         String sql = "SELECT * FROM tbl_user where Nama_user like '%" + tCari.getText() + "'";
@@ -474,7 +475,7 @@ public class CRUDadmin extends javax.swing.JFrame {
                 String Telp = rs.getString("Telephon");
                 String level = rs.getString("level");
 
-                String[] data = {id, nama, pass, Telp,level};
+                String[] data = {id, nama, pass, Telp, level};
                 model.addRow(data);
             }
         } catch (Exception e) {
@@ -486,7 +487,8 @@ public class CRUDadmin extends javax.swing.JFrame {
     public void ID_AUTO() {
         try {
             String sql = "Select max(right(Kode_user,2)) as no_iduser from tbl_user";
-            rs = con.createStatement().executeQuery(sql);
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 if (rs.first() == false) {
                     tIDadmin.setText("U-01");
@@ -509,7 +511,7 @@ public class CRUDadmin extends javax.swing.JFrame {
     }
 
     private void Resetform() {
-       ID_AUTO();
+        ID_AUTO();
         tNama.setText("");
         tPassword.setText("");
         telp.setText("");

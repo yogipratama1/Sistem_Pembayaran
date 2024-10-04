@@ -426,7 +426,8 @@ public class CRUDkelas extends javax.swing.JFrame {
         String[] judul = {"Kode Kelas", "Nama Kelas", "Grup Kelas"};
         model = new DefaultTableModel(judul, 0);
         tblkelas.setModel(model);
-        String sql = "SELECT * FROM tbl_kelas where Nama_kelas like '%" + tCari.getText() + "%'OR group_kelas like '%" + tCari.getText() + "%'";
+        String sql = "SELECT * FROM tbl_kelas where Nama_kelas like '%" + tCari.getText() + "%'OR group_kelas like '%" + tCari.getText() + "%'"
+                + " ORDER BY nama_kelas DESC";
 
         try {
             rs = con.createStatement().executeQuery(sql);
@@ -463,7 +464,8 @@ public class CRUDkelas extends javax.swing.JFrame {
     public void ID_AUTO() {
         try {
             String sql = "Select max(right(Kode_kelas,2)) as no_idkelas from tbl_kelas";
-            rs = con.createStatement().executeQuery(sql);
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 if (rs.first() == false) {
                     tIDkelas.setText("KLS-01");

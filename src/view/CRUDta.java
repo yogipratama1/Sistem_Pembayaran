@@ -8,7 +8,10 @@ package view;
 import config.KoneksiDB;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -263,17 +266,33 @@ public class CRUDta extends javax.swing.JFrame {
     private void btnsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimpanActionPerformed
 
         String nama = tnamaTA.getText();
+        int i = tblTA.getSelectedRow();
         if (nama.equals("")) {
             JOptionPane.showMessageDialog(null, "Masukan tahun ajaran dengan benar!!");
         } else {
+            String sql = "SELECT * FROM tbl_periode WHERE Periode ='" + tblTA.getValueAt(i, 0) + "'";
             try {
-                con.createStatement().executeUpdate("INSERT INTO tbl_periode VALUE('" + nama + "',CURRENT_TIMESTAMP)");
-                JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan");
-                Resetform();
-            } catch (Exception ex) {
-                System.out.println("" + ex);
+                rs = con.createStatement().executeQuery(sql);
+                if (rs.next()) {
+
+                    String update = "UPDATE tbl_periode set Periode='" + nama + "' WHERE Periode='" + tblTA.getValueAt(i, 0)+"'";
+                    con.createStatement().executeUpdate(update);
+                     JOptionPane.showMessageDialog(null, "Data Berhasil Diupdate");
+                        Resetform();
+                } else {
+                    try {
+                        con.createStatement().executeUpdate("INSERT INTO tbl_periode VALUE('" + nama + "',CURRENT_TIMESTAMP)");
+                        JOptionPane.showMessageDialog(null, "Data Berhasil Ditambahkan");
+                        Resetform();
+                    } catch (Exception ex) {
+                        System.out.println("" + ex);
+                        JOptionPane.showMessageDialog(null, "Gagal !! Tahun Ajaran Sudah ada!! ");
+                    }
+                }
+            } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Gagal !! Tahun Ajaran Sudah ada!! ");
             }
+
         }
 
 
@@ -343,7 +362,7 @@ public class CRUDta extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void tabelTA() {
-        String[] judul = {"PERIODE","Created At"};
+        String[] judul = {"PERIODE", "Created At"};
         model = new DefaultTableModel(judul, 0);
         tblTA.setModel(model);
         String sql = "SELECT * FROM tbl_periode where Periode like '%" + tCari.getText() + "' ORDER BY created_at DESC";
@@ -357,7 +376,7 @@ public class CRUDta extends javax.swing.JFrame {
                 String periode = rs.getString("Periode");
                 String createdAt = rs.getString("created_at");
 
-                String[] data = {periode,createdAt};
+                String[] data = {periode, createdAt};
                 model.addRow(data);
             }
         } catch (Exception e) {

@@ -405,9 +405,8 @@ public class CRUDjpembayaran extends javax.swing.JFrame {
                     System.out.println(sql);
 
                 } else {
-                    System.out.println("masuk sini"+id);
-                    
-                    
+                    System.out.println("masuk sini" + id);
+
                     con.createStatement().executeUpdate("INSERT INTO tbl_pembayaran VALUE('" + id + "','" + nama + "','" + Biaya + "','" + kelas + "','" + periode + "')");
                     //new feature to add pembayaran to tagihan siswa
                     String sqlCheckSiswa = "select *,tbl_kelas.group_kelas from tbl_setupkelas"
@@ -553,7 +552,8 @@ public class CRUDjpembayaran extends javax.swing.JFrame {
         String sql = "SELECT * FROM tbl_pembayaran where Nama_pembayaran like '%" + tCari.getText() + "%'OR Kode_bayar like '%" + tCari.getText() + "%' ORDER BY Kode_bayar DESC";
 
         try {
-            rs = con.createStatement().executeQuery(sql);
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
                 String id = rs.getString("Kode_bayar");
@@ -562,7 +562,7 @@ public class CRUDjpembayaran extends javax.swing.JFrame {
                 String kelas = rs.getString("group_kelas");
                 String periode = rs.getString("Periode");
 
-                String[] data = {id, nama, bayar, kelas, periode};
+                String[] data = {id, nama, bayar.split("\\.")[0], kelas, periode};
                 model.addRow(data);
             }
         } catch (Exception e) {
@@ -589,7 +589,8 @@ public class CRUDjpembayaran extends javax.swing.JFrame {
     public void ID_AUTO() {
         try {
             String sql = "Select max(Kode_bayar) as no_idjpembayaran from tbl_pembayaran";
-            rs = con.createStatement().executeQuery(sql);
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 if (rs.first() == false) {
                     tIDpembayaran.setText("1");

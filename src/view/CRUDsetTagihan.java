@@ -50,7 +50,7 @@ public class CRUDsetTagihan extends javax.swing.JFrame {
 
     public void comboperiode2() {
 
-        String sql = "SELECT * FROM tbl_periode ";
+        String sql = "SELECT * FROM tbl_periode ORDER BY created_at DESC";
 
         try {
             pst = con.prepareStatement(sql);
@@ -464,7 +464,7 @@ public class CRUDsetTagihan extends javax.swing.JFrame {
         tIDsiswa.setText(model.getValueAt(i, 1).toString());
         nmpembayaran.setText(model.getValueAt(i, 2).toString());
         kb.setText(model.getValueAt(i, 3).toString());
-        htng.setText(model.getValueAt(i, 4).toString());
+        htng.setText(model.getValueAt(i, 4).toString().split("\\.")[0]);
         tperiode.setSelectedItem(model.getValueAt(i, 0).toString());
 
     }//GEN-LAST:event_tblsiswaMouseClicked
@@ -575,7 +575,8 @@ public class CRUDsetTagihan extends javax.swing.JFrame {
     public void totaltagihan() {
         int total = 0;
         for (int i = 0; i < tblsiswa.getRowCount(); i++) {
-            int amount = Integer.parseInt((String) tblsiswa.getValueAt(i, 4));
+            String harga = tblsiswa.getValueAt(i, 4).toString();
+            int amount = Integer.parseInt(harga.split("\\.")[0]);
             total += amount;
         }
         jmlhutang.setText("" + String.valueOf(kursIndonesia.format(total)));

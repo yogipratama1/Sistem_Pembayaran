@@ -2534,7 +2534,8 @@ public class dashboard_ppdb_backup extends javax.swing.JFrame {
  public String ID_AUTO(String idSiswa) {
         try {
             String sql = "Select max(Kode_siswa) from tbl_siswa";
-            rs = con.createStatement().executeQuery(sql);
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 if (rs.first() == false) {
                     idSiswa = "1";
